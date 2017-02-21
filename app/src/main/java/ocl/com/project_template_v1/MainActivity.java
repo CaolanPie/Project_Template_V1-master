@@ -1,5 +1,13 @@
 package ocl.com.project_template_v1;
 
+/*
+ * Change log
+ * 21-Feb-17 Caolan     Created menu in top right of screen
+ *
+ *
+ */
+
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
