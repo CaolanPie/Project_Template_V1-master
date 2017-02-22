@@ -24,11 +24,23 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
+    String[] myStrings = { "First", "Second", "Third hard coded String"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         populateMyList();
+
         setContentView(R.layout.activity_main);
+        ListView ll=(ListView) findViewById(R.id.list_messages);
+
+
+        ArrayList<String> myArrayList = new ArrayList<String>(
+                Arrays.asList(myStrings));
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayList);
+
+        ll.setAdapter(adapter);
     }
 
     public void scanPage(View view) {
@@ -64,17 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateMyList() {
-        ListView ll=(ListView) findViewById(R.id.list_messages);
-        String[] myStrings = { "First", "Second", "Third hard coded String"};
 
-        ArrayList<String> myArrayList = new ArrayList<String>(
-                Arrays.asList(myStrings));
-
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-
-
-
-        ll.setAdapter(adapter);
 /*
         ll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
