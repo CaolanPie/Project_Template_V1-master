@@ -2,8 +2,8 @@ package ocl.com.project_template_v1;
 
 /*
  * Change log
+ * 22-Feb-17 Caolan     List messages created
  * 21-Feb-17 Caolan     Created menu in top right of screen
- *
  *
  */
 
@@ -41,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayList);
 
         ll.setAdapter(adapter);
+
+        ll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                      @Override
+                                      public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                                          //TODO Auto-generated method stub
+                                          TextView txt = (TextView) arg1;
+                                          System.out.println(txt.getText().toString());
+                                      }
+                                  }
+        );
+
     }
 
     public void scanPage(View view) {
@@ -77,17 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void populateMyList() {
 
-/*
-        ll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                //TODO Auto-generated method stub
-                TextView txt = (TextView) arg1;
-                System.out.println(txt.getText().toString());
-            }
-        }
-        ); */
+
 
     } // End of populateMyList
 
