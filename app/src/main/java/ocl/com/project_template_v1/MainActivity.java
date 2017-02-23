@@ -24,8 +24,6 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-//     String[] myStrings = { "First", "Second", "Third hard coded String"};
-  //  String[] myStrings;                        // My Array of strings
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ListView ll=(ListView) findViewById(R.id.list_messages);
 
-/*
-        ArrayList<String> myArrayList = new ArrayList<String>(
-                Arrays.asList(myStrings));
-                */
+
         ArrayList<String> myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
         myArrayList.clear();        // Clear our list
         myArrayList.add("Fourth");  // Add some value
@@ -97,13 +92,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * Routing to populate our ArrayList of Message for the bottom of the screen
+     * Routine to populate our ArrayList of Message for the bottom of the screen
      *      Currently there are only hard coded messages
      */
     private void populateMyList(ArrayList<String> myArrayList) {
 
         myArrayList.add("Added by PopulateMyList");
         myArrayList.add("Also Added by PopulateMyList");
+        myArrayList.add("moo");
 
     } // End of populateMyList
 
