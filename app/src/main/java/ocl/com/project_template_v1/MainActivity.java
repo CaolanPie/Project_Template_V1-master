@@ -24,36 +24,45 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] myStrings = { "First", "Second", "Third hard coded String"};
+//     String[] myStrings = { "First", "Second", "Third hard coded String"};
+  //  String[] myStrings;                        // My Array of strings
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        populateMyList();
+
 
         setContentView(R.layout.activity_main);
         ListView ll=(ListView) findViewById(R.id.list_messages);
 
-
+/*
         ArrayList<String> myArrayList = new ArrayList<String>(
                 Arrays.asList(myStrings));
+                */
+        ArrayList<String> myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
+        myArrayList.clear();        // Clear our list
+        myArrayList.add("Fourth");  // Add some value
+        myArrayList.add("Fifth");
+        myArrayList.add("Last");
 
+        // The next line called the routing which will populate our list of messages
+        populateMyList(myArrayList);
+
+        // Ths next section takes our myArrayList and puts them in our ListView
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayList);
-
         ll.setAdapter(adapter);
 
+        // this code waits for one of the items in our ListView and just says what was clicked
         ll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                                      @Override
-                                      public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                                          //TODO Auto-generated method stub
-                                          TextView txt = (TextView) arg1;
-                                          System.out.println(txt.getText().toString());
-                                      }
-                                  }
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    //TODO Auto-generated method stub
+                    TextView txt = (TextView) arg1;
+                    System.out.println(txt.getText().toString());
+                }
+            }
         );
-
-    }
+    } // end of onCreate
 
     public void scanPage(View view) {
 
@@ -87,10 +96,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void populateMyList() {
+    /*
+     * Routing to populate our ArrayList of Message for the bottom of the screen
+     *      Currently there are only hard coded messages
+     */
+    private void populateMyList(ArrayList<String> myArrayList) {
 
-
-
+        myArrayList.add("Added by PopulateMyList");
+        myArrayList.add("Also Added by PopulateMyList");
 
     } // End of populateMyList
 
