@@ -26,6 +26,10 @@ import android.view.SurfaceView;
 import android.view.WindowManager;
 
 
+import com.google.android.gms.common.images.Size;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.Frame;
+
 import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,7 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*
+/**
  * Manages the camera in conjunction with an underlying
  * {@link com.google.android.gms.vision.Detector}.  This receives preview frames from the camera at
  * a specified rate, sending those frames to the detector as fast as it is able to process those
@@ -106,7 +110,7 @@ public class CameraSource {
 
     private int mFacing = CAMERA_FACING_BACK;
 
-    /*
+    /**
      * Rotation of the device, and thus the associated preview images captured from the device.
      * See {@link Frame.Metadata#getRotation()}.
      */
