@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void scanPage(View view) {
 
-        Intent intent = new Intent(this, scanActivity.class);
+        Intent intent = new Intent(this, BarcodeCaptureActivity.class);
         startActivity(intent);
     }
 
