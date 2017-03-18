@@ -1,5 +1,6 @@
 package ocl.com.project_template_v1;
 
+// this can be removed as it has been replaced by BarcodeCaptureActivity.java
 
 import android.content.Intent;
 import android.os.Bundle;
