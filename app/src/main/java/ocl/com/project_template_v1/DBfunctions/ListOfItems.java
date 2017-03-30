@@ -8,21 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Caolán on 26/03/2017.
+ * Created by Caolán on 28/03/2017.
  */
 
-/*
- * This Class will hold the majority if not all the functions for the ListOfLists database
- *      which will be used for accessing our data base
- *
- * Change Log
- * 26-Mar-17 Initial version, this may be all the DB functions we need.
- */
+public class ListOfItems {
 
-public class ListOfLists {
-
-    private static final String DATABASE_NAME = "myListsDB";  // Our DB will be called myListsDB
-    private static final String DATABASE_TABLE = "Lists"; // our table inside the db is called Details
+    private static final String DATABASE_NAME = "myItemsDB";  // Our DB will be called myItemsDB
+    private static final String DATABASE_TABLE = "Items"; // our table inside the db is called Details
     private static final int DATABASE_VERSION = 1; // initial DB Version
 
     // These are the names of the columns in our table
@@ -43,7 +35,7 @@ public class ListOfLists {
                     + KEY_LastEdited + " text not null);";
 
     // above SQL statment translates to
-    // create table ListOfLists ( _id integer primary key autoincrement,
+    // create table ListOfItems ( _id integer primary key autoincrement,
     // 							Name text not null,
     //                          DateCreated text not null,
     //							LastEdited text not null);
@@ -85,7 +77,7 @@ public class ListOfLists {
      * @return .mCtx
      */
 
-    public ListOfLists(Context ctx) {
+    public ListOfItems(Context ctx) {
         this.mCtx = ctx;
     }
 
@@ -98,7 +90,7 @@ public class ListOfLists {
      * throws SQLException - if it fails to open a DB it returns an exception.
      */
 
-    public ListOfLists open() throws SQLException {
+    public ListOfItems open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
         return this;
@@ -117,7 +109,7 @@ public class ListOfLists {
     }
 
     /**
-     * Create a new ListOfLists record using the supplied details (name, address etc...)
+     * Create a new ListOfItems record using the supplied details (name, address etc...)
      *
      * If the row is successfully created then the .insert will return the new rowId
      * for that row, otherwise return a -1 to indicate failure.
@@ -129,9 +121,9 @@ public class ListOfLists {
      * @return rowId (if successful) or -1 if failed
      */
 
-    public long createListOfListsRow(String name,
-                                String DateCreated,
-                                String LastEdited) {
+    public long createListOfItemsRow(String name,
+                                     String DateCreated,
+                                     String LastEdited) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_Name, name);
         initialValues.put(KEY_DateCreated, DateCreated);
@@ -141,40 +133,40 @@ public class ListOfLists {
     }
 
     /**
-     * deletes selected ListOfLists row
+     * deletes selected ListOfItems row
      *
      * input parameters rowId - the Lists to delete (which row it is on)
      *
      * @return rowId
      */
 
-    public boolean deleteListOfListsRow(long rowId) {
+    public boolean deleteListOfItemsRow(long rowId) {
         return
                 mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
     /**
-     * fetches ALL the ListOfLists from the table
+     * fetches ALL the ListOfItems from the table
      *
      * input parameters NONE
      *
      * @return string[] - a list of all the Lists in our table
      */
 
-    public Cursor fetchAllListOfLists() {
+    public Cursor fetchAllListOfItems() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_Name,
                 KEY_DateCreated, KEY_LastEdited}, null, null, null, null, null);
     }
 
     /**
-     * Retrieves a SINGLE row of ListOfLists based on the rowid
+     * Retrieves a SINGLE row of ListOfItems based on the rowid
      *
      * input parameters rowId - description not found
      *
      * @return mCursor - a cursor pointing to the required ListOfLists Row
      */
 
-    public Cursor fetchListOfListsRow(long rowId) throws SQLException {
+    public Cursor fetchListOfItemsRow(long rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
                                 KEY_Name, KEY_DateCreated, KEY_LastEdited}, KEY_ROWID + "=" + rowId,
@@ -186,7 +178,7 @@ public class ListOfLists {
     }
 
     /**
-     * saves changes to the ListOfLists row
+     * saves changes to the ListOfItems row
      *
      * input parameters rowId - the id of the row we want to update
      * 				  name - name of the list
@@ -196,10 +188,10 @@ public class ListOfLists {
      * @return true if update was successful
      */
 
-    public boolean updateListOfListsRow(long rowId,
-                                   String name,
-                                   String DateCreated,
-                                   String LastEdited) {
+    public boolean updateListOfItemsRow(long rowId,
+                                        String name,
+                                        String DateCreated,
+                                        String LastEdited) {
         ContentValues args = new ContentValues();
         args.put(KEY_Name, name);
         args.put(KEY_DateCreated, DateCreated);
@@ -208,4 +200,5 @@ public class ListOfLists {
         return
                 mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
+
 }
