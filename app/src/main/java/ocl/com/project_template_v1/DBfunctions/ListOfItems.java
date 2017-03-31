@@ -18,10 +18,13 @@ public class ListOfItems {
     private static final int DATABASE_VERSION = 1; // initial DB Version
 
     // These are the names of the columns in our table
-    public static final String KEY_ROWID = "_id";
-    public static final String KEY_Name = "Name";
-    public static final String KEY_DateCreated = "DateCreated";
-    public static final String KEY_LastEdited = "LastEdited";
+    public static final String KEY_ROWID = "ListNo";
+    public static final String item_Number = "ItemNumber";
+    public static final String item_Name = "ItemName";
+    public static final String item_serial = "SerialNumber";
+    public static final String date_purchased = "DatePurchased";
+    public static final String warranty = "Warranty";
+    public static final String warranty_date = "WarrantyExpiration";
 
 
     private DatabaseHelper mDbHelper;
@@ -29,10 +32,14 @@ public class ListOfItems {
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE + " ("
-                    + KEY_ROWID + " integer primary key autoincrement, "
-                    + KEY_Name + " text not null, "
-                    + KEY_DateCreated + " text not null, "
-                    + KEY_LastEdited + " text not null);";
+                    + KEY_ROWID + " integer not null, "
+                    + item_Number + " integer not null, "
+                    + item_Name + " text not null, "
+                    + item_serial + " text not null, "
+                    + date_purchased + " text not null, "
+                    + warranty + " text not null, "
+                    + warranty_date + " text,"
+                    + "PRIMARY KEY ( " + KEY_ROWID + ", " + item_Number + ")";
 
     // above SQL statment translates to
     // create table ListOfItems ( _id integer primary key autoincrement,
@@ -41,11 +48,11 @@ public class ListOfItems {
     //							LastEdited text not null);
 	/*
 	The table would look like this (column names on top)
-	   _id	Name		DateCreated	LastEdited
-	   ===	===========	=========== =========
-		1	Work		02-Jan-2017	02-Jan-2017
-		2	LivingRoom	02-Feb-2017	02-Feb-2017
-		3	Upstairs	02-Apr-2017	02-Apr-2017
+	   ListNo	ItemNumber	ItemName  SerialNumber  DatePurchased  Warranty WarrantyExpiration
+	   ======	===========	========= ============  =============  ======== ==================
+		1	    1		    T.V.	  931904193     22-Feb-2017    Y        22-Feb-2018
+		1	    2	        Drone	  834873912     24-Feb-2017    N        N/A
+		1	    3	        Headset	  293129304     19-Feb-2017    N        N/A
 
 	 */
 
@@ -114,20 +121,29 @@ public class ListOfItems {
      * If the row is successfully created then the .insert will return the new rowId
      * for that row, otherwise return a -1 to indicate failure.
      *
-     * @param name = name
-     * @param DateCreated = date when the list was created
-     * @param LastEdited = date of when the user last edited this list
+     * @param ListNo = the number of the list that the item belongs to
+     * @param ItemName = the name of the item
+     * @param SerialNumber = serial number of item
+     * @param DatePurchased = date it was purchased
+     * @param Warranty = does it have a warranty? Y/N
+     * @param WarrantyExpiration = If so, when does it's warranty expire?
      *
      * @return rowId (if successful) or -1 if failed
      */
 
-    public long createListOfItemsRow(String name,
-                                     String DateCreated,
-                                     String LastEdited) {
+    public long createListOfItemsRow(String ListNo,
+                                     String ItemName,
+                                     String SerialNumber,
+                                     String DatePurchased,
+                                     String Warranty,
+                                     String WarrantyExpiration) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_Name, name);
-        initialValues.put(KEY_DateCreated, DateCreated);
-        initialValues.put(KEY_LastEdited, LastEdited);
+        initialValues.put(KEY_ROWID, ListNo);
+        initialValues.put(item_Name, ItemName);
+        initialValues.put(item_serial, SerialNumber);
+        initialValues.put(date_purchased, DatePurchased);
+        initialValues.put(warranty, Warranty);
+        initialValues.put(warranty_date, WarrantyExpiration);
 
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -154,8 +170,8 @@ public class ListOfItems {
      */
 
     public Cursor fetchAllListOfItems() {
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_Name,
-                KEY_DateCreated, KEY_LastEdited}, null, null, null, null, null);
+        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, item_Name,
+                item_serial, date_purchased, warranty, warranty_date}, null, null, null, null, null, null);
     }
 
     /**
@@ -169,8 +185,8 @@ public class ListOfItems {
     public Cursor fetchListOfItemsRow(long rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                                KEY_Name, KEY_DateCreated, KEY_LastEdited}, KEY_ROWID + "=" + rowId,
-                        null, null, null, null, null);
+                                item_Name, item_serial, date_purchased, warranty, warranty_date}, KEY_ROWID + "=" + rowId,
+                        null, null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -180,22 +196,30 @@ public class ListOfItems {
     /**
      * saves changes to the ListOfItems row
      *
-     * input parameters rowId - the id of the row we want to update
-     * 				  name - name of the list
-     * 				  DateCreated - date the list was created
-     * 				  LastEdited - date that the list was last edited
+     * input parameters  ListNo = the number of the list that the item belongs to
+     *                   ItemName = the name of the item
+     *                   SerialNumber = serial number of item
+     *                   DatePurchased = date it was purchased
+     *                   Warranty = does it have a warranty? Y/N
+     *                   WarrantyExpiration = If so, when does it's warranty expire?
      *
      * @return true if update was successful
      */
 
     public boolean updateListOfItemsRow(long rowId,
-                                        String name,
-                                        String DateCreated,
-                                        String LastEdited) {
+                                        String ListNo,
+                                        String ItemName,
+                                        String SerialNumber,
+                                        String DatePurchased,
+                                        String Warranty,
+                                        String WarrantyExpiration) {
         ContentValues args = new ContentValues();
-        args.put(KEY_Name, name);
-        args.put(KEY_DateCreated, DateCreated);
-        args.put(KEY_LastEdited, LastEdited);
+        args.put(KEY_ROWID, ListNo);
+        args.put(item_Name, ItemName);
+        args.put(item_serial, SerialNumber);
+        args.put(date_purchased, DatePurchased);
+        args.put(warranty, Warranty);
+        args.put(warranty_date, WarrantyExpiration);
 
         return
                 mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
