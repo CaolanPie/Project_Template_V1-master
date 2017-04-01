@@ -9,20 +9,27 @@ package ocl.com.project_template_v1;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ocl.com.project_template_v1.DBfunctions.ListOfLists;
+
 public class MainActivity extends AppCompatActivity {
+    private ListOfLists mDbHelperLists;
+    private ListView MyListsView;
 
 
     @Override
@@ -57,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         );
+        // Read my ListOfLists table
+        mDbHelperLists = new ListOfLists(this);
+        mDbHelperLists.open();
+       // GetAllLists();
     } // end of onCreate
 
     public void scanPage(View view) {
@@ -83,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void listEntryPage(View view) {
+
+        Intent intent = new Intent(this, ListEntryActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -103,6 +120,29 @@ public class MainActivity extends AppCompatActivity {
 
     } // End of populateMyList
 
+
+    /*
+        This routine gets all the lists for the ListOfLists page,
+        reading it from the database table called "ListOfLists"
+     */
+    private void GetAllLists() {
+        Log.i(">> MainActivity"," :: GetAllLists");
+
+        Cursor ListsCursor = mDbHelperLists.fetchAllListOfLists();
+        startManagingCursor(ListsCursor);
+        // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
+        Log.i("Number of Records"," :: "+ListsCursor.getCount());
+
+        String[] from = new String[]{ListOfLists.KEY_Name};
+
+        int[] to = new int[]{R.id.text1};
+
+        SimpleCursorAdapter ListOfLists =
+                new SimpleCursorAdapter(this, R.layout.activity_lists,
+                        ListsCursor, from, to);
+        MyListsView.setAdapter(ListOfLists);
+
+    }
 
 } // End of Class
 

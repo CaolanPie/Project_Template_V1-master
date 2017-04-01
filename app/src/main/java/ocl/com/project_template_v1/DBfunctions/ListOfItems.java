@@ -171,7 +171,7 @@ public class ListOfItems {
 
     public Cursor fetchAllListOfItems() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, item_Name,
-                item_serial, date_purchased, warranty, warranty_date}, null, null, null, null, null, null);
+                item_serial, date_purchased, warranty, warranty_date}, null, null, null, null, null);
     }
 
     /**
@@ -186,7 +186,7 @@ public class ListOfItems {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
                                 item_Name, item_serial, date_purchased, warranty, warranty_date}, KEY_ROWID + "=" + rowId,
-                        null, null, null, null, null, null);
+                        null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
