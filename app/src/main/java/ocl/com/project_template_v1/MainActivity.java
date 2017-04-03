@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // Read my ListOfLists table
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
-       // GetAllLists();
+        GetAllLists();
     } // end of onCreate
 
     public void scanPage(View view) {
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     } // End of populateMyList
 
 
-    /*
+    /**
         This routine gets all the lists for the ListOfLists page,
         reading it from the database table called "ListOfLists"
      */
@@ -133,14 +133,17 @@ public class MainActivity extends AppCompatActivity {
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
         Log.i("Number of Records"," :: "+ListsCursor.getCount());
 
-        String[] from = new String[]{ListOfLists.KEY_Name};
+        if (ListsCursor.getCount() >= 1) {
+            String[] from = new String[]{ListOfLists.KEY_Name};
 
-        int[] to = new int[]{R.id.text1};
+            int[] to = new int[]{R.id.mytext};
 
-        SimpleCursorAdapter ListOfLists =
-                new SimpleCursorAdapter(this, R.layout.activity_lists,
-                        ListsCursor, from, to);
-        MyListsView.setAdapter(ListOfLists);
+            SimpleCursorAdapter ListOfLists =
+                    new SimpleCursorAdapter(this, R.layout.list_single_row,
+                            ListsCursor, from, to);
+            MyListsView.setAdapter(ListOfLists);
+        }
+
 
     }
 
