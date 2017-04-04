@@ -25,10 +25,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
 public class MainActivity extends AppCompatActivity {
     private ListOfLists mDbHelperLists;
+    private ListOfItems mDbHelperItems;
+    private ListView MyItemsView;
     private ListView MyListsView;
 
 
@@ -67,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
         // Read my ListOfLists table
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
-        GetAllLists();
+        GetAllLists();  // Get all records from my List of Lists table
+        GetAllItems(); // Get all records from my List of Items table
+        // GetAllLists();  // Get all records from my List of Items table
     } // end of onCreate
 
     public void scanPage(View view) {
@@ -108,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*
+    /**
      * Routine to populate our ArrayList of Message for the bottom of the screen
      *      Currently there are only hard coded messages
+     *      @param myArrayList
      */
     private void populateMyList(ArrayList<String> myArrayList) {
 
@@ -142,6 +148,33 @@ public class MainActivity extends AppCompatActivity {
                     new SimpleCursorAdapter(this, R.layout.list_single_row,
                             ListsCursor, from, to);
             MyListsView.setAdapter(ListOfLists);
+        }
+
+
+    }
+
+
+    /**
+     This routine gets all the items for the ListOfItems page,
+     reading it from the database table called "ListOfItems"
+     */
+    private void GetAllItems() {
+        Log.i(">> MainActivity"," :: GetAllItems");
+
+        Cursor ItemsCursor = mDbHelperItems.fetchAllListOfItems();
+        startManagingCursor(ItemsCursor);
+        // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
+        Log.i("Number of Records"," :: "+ItemsCursor.getCount());
+
+        if (ItemsCursor.getCount() >= 1) {
+            String[] from = new String[]{ListOfItems.item_Name};
+
+            int[] to = new int[]{R.id.mytext2};
+
+            SimpleCursorAdapter ListOfItems =
+                    new SimpleCursorAdapter(this, R.layout.item_single_row,
+                            ItemsCursor, from, to);
+            MyItemsView.setAdapter(ListOfItems);
         }
 
 

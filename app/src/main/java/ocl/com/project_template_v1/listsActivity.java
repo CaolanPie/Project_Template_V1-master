@@ -14,8 +14,7 @@ public class listsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
-        Intent intent = getIntent();
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_lists);
+        Intent intent = getIntent();        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_lists);
     }
 
     public void backPage(View view) {
