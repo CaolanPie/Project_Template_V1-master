@@ -14,8 +14,17 @@ public class listsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
-        Intent intent = getIntent();        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_lists);
+        Intent intent = getIntent();
+        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_lists);
     }
+
+    /*
+    public void listEntryPage(View view) {
+
+        Intent intent = new Intent(this, ListEntryActivity.class);
+        startActivity(intent);
+    }
+*/
 
     public void backPage(View view) {
 // nothing in the function yet .. just finish

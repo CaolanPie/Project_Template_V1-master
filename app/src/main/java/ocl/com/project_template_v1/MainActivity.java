@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
-        GetAllItems(); // Get all records from my List of Items table
+       // GetAllItems(); // Get all records from my List of Items table
         // GetAllLists();  // Get all records from my List of Items table
     } // end of onCreate
 
@@ -99,11 +99,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void listEntryPage(View view) {
 
         Intent intent = new Intent(this, ListEntryActivity.class);
         startActivity(intent);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
