@@ -50,12 +50,10 @@
         android:onClick="inventoryPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="78dp"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/current_list_name"
-        android:layout_toEndOf="@+id/current_list_name" />
+        android:layout_below="@+id/lists_button"
+        android:layout_toLeftOf="@+id/scan_button"
+        android:layout_toStartOf="@+id/scan_button"
+        android:layout_marginTop="13dp" />
 
     <Button
         android:text="Settings"

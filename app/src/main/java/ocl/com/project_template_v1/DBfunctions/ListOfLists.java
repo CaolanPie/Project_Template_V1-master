@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Caolán on 26/03/2017.
@@ -97,8 +98,8 @@ public class ListOfLists {
      * @return this(DB adaptor)
      * throws SQLException - if it fails to open a DB it returns an exception.
      */
-
     public ListOfLists open() throws SQLException {
+        Log.i(">> ListOfLists"," :: open");
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
         return this;
@@ -143,11 +144,10 @@ public class ListOfLists {
     /**
      * deletes selected ListOfLists row
      *
-     * input parameters rowId - the Lists to delete (which row it is on)
+     * @param rowId rowId - the row in the list to delete (which row it is on)
      *
      * @return rowId
      */
-
     public boolean deleteListOfListsRow(long rowId) {
         return
                 mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
@@ -160,7 +160,6 @@ public class ListOfLists {
      *
      * @return string[] - a list of all the Lists in our table
      */
-
     public Cursor fetchAllListOfLists() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_Name,
                 KEY_DateCreated, KEY_LastEdited}, null, null, null, null, null);
@@ -195,7 +194,6 @@ public class ListOfLists {
      *
      * @return true if update was successful
      */
-
     public boolean updateListOfListsRow(long rowId,
                                    String name,
                                    String DateCreated,
