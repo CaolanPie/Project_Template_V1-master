@@ -80,7 +80,7 @@ public class ListOfLists {
 
     /**
      * info for database
-     * >>> Caolan get more information on what this actually does <<<<<<<<<<<<
+     * >>> get more information on what this actually does <<<<<<<<<<<<
      * input parameters Context ctx - interface to global information about an application environment
      *
      * @return .mCtx

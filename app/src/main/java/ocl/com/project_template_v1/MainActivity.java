@@ -71,15 +71,15 @@ public class MainActivity extends AppCompatActivity {
          * mDbHelperLists below is creating and opening the database for ListOfLIsts
          */
         // Read my ListOfLists table
-        mDbHelperLists.open();
         mDbHelperLists = new ListOfLists(this);
+        mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
 
         /**
          * mDbHelperItems below is creating and opening the database for ListOfItems
          */
-        mDbHelperItems.open();
         mDbHelperItems = new ListOfItems(this);
+        mDbHelperItems.open();
         GetAllItems(); // Get all records from my List of Items table
 
 
@@ -134,12 +134,13 @@ public class MainActivity extends AppCompatActivity {
      * for a new list, it may later be turned into a pop up entry page
      * @param view
      */
+    /*
     public void listEntryPage(View view) {
 
         Intent intent = new Intent(this, ListEntryActivity.class);
         startActivity(intent);
     }
-
+*/
 
     /**
      * The menu created through this is the one accessed at the top right of the screen,
