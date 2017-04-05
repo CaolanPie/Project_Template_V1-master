@@ -73,15 +73,16 @@ public class MainActivity extends AppCompatActivity {
         // Read my ListOfLists table
         mDbHelperLists.open();
         mDbHelperLists = new ListOfLists(this);
+        GetAllLists();  // Get all records from my List of Lists table
 
         /**
          * mDbHelperItems below is creating and opening the database for ListOfItems
          */
         mDbHelperItems.open();
         mDbHelperItems = new ListOfItems(this);
-
-        GetAllLists();  // Get all records from my List of Lists table
         GetAllItems(); // Get all records from my List of Items table
+
+
         // GetAllLists();  // Get all records from my List of Items table
     } // end of onCreate
 
