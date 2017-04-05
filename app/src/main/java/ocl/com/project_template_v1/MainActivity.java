@@ -67,32 +67,59 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         );
+        /**
+         * mDbHelperLists below is creating and opening the database for ListOfLIsts
+         */
         // Read my ListOfLists table
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
+
+        /**
+         * mDbHelperItems below is creating and opening the database for ListOfItems
+         */
+        mDbHelperItems = new ListOfItems(this);
+        mDbHelperItems.open();
         GetAllLists();  // Get all records from my List of Lists table
-       // GetAllItems(); // Get all records from my List of Items table
+        GetAllItems(); // Get all records from my List of Items table
         // GetAllLists();  // Get all records from my List of Items table
     } // end of onCreate
 
+    /**
+     * The scanPage starts the activity to open the barcode scanner
+     * @param view
+     */
     public void scanPage(View view) {
 
         Intent intent = new Intent(this, BarcodeCaptureActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * The invetoryPage starts the activity to open the inventory page,
+     * although I am not sure it is needed anymore.
+     * @param view
+     */
     public void inventoryPage(View view) {
 
         Intent intent = new Intent(this, inventoryActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * The listsPage calls the activity responsible for the ListOfLists page
+     * @param view
+     */
     public void listsPage(View view) {
 
         Intent intent = new Intent(this, listsActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * The settingsPage calls the activity to open the settings page,
+     * although this may be removed later.
+     * @param view
+     */
     public void settingsPage(View view) {
 
         Intent intent = new Intent(this, settingsActivity.class);
@@ -100,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * The listEntryPage is currently designed to open an entire page to allow you to enter details
+     * for a new list, it may later be turned into a pop up entry page
+     * @param view
+     */
     public void listEntryPage(View view) {
 
         Intent intent = new Intent(this, ListEntryActivity.class);
@@ -107,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * The menu created through this is the one accessed at the top right of the screen,
+     * with "about" and "settings" options
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
