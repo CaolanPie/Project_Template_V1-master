@@ -39,7 +39,7 @@ public class ListOfItems {
                     + date_purchased + " text not null, "
                     + warranty + " text not null, "
                     + warranty_date + " text,"
-                    + "PRIMARY KEY ( " + KEY_ROWID + ", " + item_Number + ")";
+                    + "PRIMARY KEY ( " + KEY_ROWID + ", " + item_Number + "))";
 
     // above SQL statment translates to
     // create table ListOfItems ( _id integer primary key autoincrement,
@@ -78,7 +78,7 @@ public class ListOfItems {
 
     /**
      * info for database
-     * >>> Caolan get more information on what this actually does <<<<<<<<<<<<
+     * >>> get more information on what this actually does <<<<<<<<<<<<
      * input parameters Context ctx - interface to global information about an application environment
      *
      * @return .mCtx

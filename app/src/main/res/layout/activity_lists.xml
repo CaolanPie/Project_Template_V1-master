@@ -30,13 +30,13 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addLists_button"
+        android:onClick="listEntryPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:clickable="true"
-        android:onClick="listEntryPage"
         app:backgroundTint="?android:attr/textColorHintInverse"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_input_add" />
