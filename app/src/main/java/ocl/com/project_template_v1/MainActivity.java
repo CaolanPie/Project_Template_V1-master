@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
         Log.i("Number of Records"," :: "+ListsCursor.getCount());
 
+      /*
         if (ListsCursor.getCount() >= 1) {
             String[] from = new String[]{ListOfLists.KEY_Name};
 
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                             ListsCursor, from, to);
             MyListsView.setAdapter(ListOfLists);
         }
-
+*/
 
     }
 
