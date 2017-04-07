@@ -14,7 +14,7 @@
         android:id="@+id/textView3" />
 
     <ListView
-        android:id="@+id/list_messages"
+        android:id="@+id/list_of_lists"
         android:layout_width="match_parent"
         android:layout_height="800px"
         android:layout_alignParentBottom="true"
