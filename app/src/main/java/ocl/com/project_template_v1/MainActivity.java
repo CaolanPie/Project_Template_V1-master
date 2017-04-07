@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         // get ID's of our two lists
         MyListsView = (ListView) findViewById(R.id.list_of_lists);
+        MyItemsView = (ListView) findViewById(R.id.list_of_items);
 
         // Ths next section takes our myArrayList and puts them in our ListView
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayList);
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         startManagingCursor(ListsCursor);
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
         Log.i("Number of Records"," :: "+ListsCursor.getCount());
-
+/*
 
         if (ListsCursor.getCount() >= 1) {
             String[] from = new String[]{ListOfLists.KEY_Name};
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                             ListsCursor, from, to);
             MyListsView.setAdapter(ListOfLists);
         }
-
+*/
 
     }
 
