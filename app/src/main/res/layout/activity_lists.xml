@@ -21,7 +21,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addLists_button"
         android:layout_width="wrap_content"
