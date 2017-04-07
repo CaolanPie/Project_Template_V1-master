@@ -29,11 +29,12 @@ import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
 public class MainActivity extends AppCompatActivity {
+    /*
     private ListOfLists mDbHelperLists;
     private ListOfItems mDbHelperItems;
     private ListView MyItemsView;
     private ListView MyListsView;
-
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         populateMyList(myArrayList);
 
         // get ID's of our two lists
-        MyListsView = (ListView) findViewById(R.id.list_of_lists);
-        MyItemsView = (ListView) findViewById(R.id.list_of_items);
+        //MyListsView = (ListView) findViewById(R.id.list_of_lists);
+        //MyItemsView = (ListView) findViewById(R.id.list_of_items);
 
         // Ths next section takes our myArrayList and puts them in our ListView
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, myArrayList);
@@ -75,17 +76,19 @@ public class MainActivity extends AppCompatActivity {
          * mDbHelperLists below is creating and opening the database for ListOfLIsts
          */
         // Read my ListOfLists table
+        /*
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
-
+        */
         /**
          * mDbHelperItems below is creating and opening the database for ListOfItems
          */
+        /*
         mDbHelperItems = new ListOfItems(this);
         mDbHelperItems.open();
         GetAllItems(); // Get all records from my List of Items table
-
+        */
 
         // GetAllLists();  // Get all records from my List of Items table
     } // end of onCreate
@@ -178,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
         This routine gets all the lists for the ListOfLists page,
         reading it from the database table called "ListOfLists"
      */
+
+    /*
     private void GetAllLists() {
         Log.i(">> MainActivity"," :: GetAllLists");
 
@@ -185,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         startManagingCursor(ListsCursor);
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
         Log.i("Number of Records"," :: "+ListsCursor.getCount());
-/*
+
 
         if (ListsCursor.getCount() >= 1) {
             String[] from = new String[]{ListOfLists.KEY_Name};
@@ -197,15 +202,16 @@ public class MainActivity extends AppCompatActivity {
                             ListsCursor, from, to);
             MyListsView.setAdapter(ListOfLists);
         }
-*/
+
 
     }
-
+*/
 
     /**
      This routine gets all the items for the ListOfItems page,
      reading it from the database table called "ListOfItems"
      */
+    /*
     private void GetAllItems() {
         Log.i(">> MainActivity"," :: GetAllItems");
 
@@ -227,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    */
 
 } // End of Class
 
