@@ -38,7 +38,7 @@
         android:text="Date Purchased" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save" />

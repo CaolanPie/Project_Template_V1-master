@@ -130,8 +130,7 @@ public class ListOfItems {
      *
      * @return rowId (if successful) or -1 if failed
      */
-
-    public long createListOfItemsRow(String ListNo,
+    public long createListOfItemsRow(int ListNo,
                                      String ItemName,
                                      String SerialNumber,
                                      String DatePurchased,
