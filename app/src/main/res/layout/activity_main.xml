@@ -32,28 +32,16 @@
         android:layout_alignParentStart="true" />
         -->
 
-    <TextView
-        android:text="Default List"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/current_list_name"
-        android:layout_marginLeft="46dp"
-        android:layout_marginStart="46dp"
-        android:layout_alignBaseline="@+id/inventory_button"
-        android:layout_alignBottom="@+id/inventory_button"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
-
     <Button
         android:text="Go"
         android:id="@+id/inventory_button"
         android:onClick="inventoryPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
         android:layout_below="@+id/lists_button"
-        android:layout_toLeftOf="@+id/scan_button"
-        android:layout_toStartOf="@+id/scan_button"
-        android:layout_marginTop="13dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Settings"
@@ -97,5 +85,20 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <!--
+    <Spinner
+        android:id="@+id/list_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/inventory_button"
+        android:layout_marginTop="11dp"
+        android:layout_toLeftOf="@+id/inventory_button"
+        android:layout_toStartOf="@+id/inventory_button"
+        android:entries="moo" />
+
+        -->
 
 </RelativeLayout>
