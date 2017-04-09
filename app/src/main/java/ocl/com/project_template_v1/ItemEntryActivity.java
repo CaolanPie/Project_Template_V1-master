@@ -67,6 +67,7 @@ public class ItemEntryActivity extends AppCompatActivity {
                         //		inserts the new row in our database
                         mDbHelperItems.createListOfItemsRow(
                                 1,
+                                1,
                                 mNameBox.getText().toString(),
                                 mSerialBox.getText().toString(),
                                 mDateBox.getText().toString(),

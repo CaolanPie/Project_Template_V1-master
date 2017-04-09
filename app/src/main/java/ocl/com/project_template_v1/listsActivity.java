@@ -39,7 +39,7 @@ public class listsActivity extends AppCompatActivity {
         Cursor ListsCursor = mDbHelperLists.fetchAllListOfLists();
         startManagingCursor(ListsCursor);
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
-        Log.i("Number of Records"," :: "+ListsCursor.getCount());
+        Log.i("Number of List Records"," :: "+ListsCursor.getCount());
 
 
         if (ListsCursor.getCount() >= 1) {
