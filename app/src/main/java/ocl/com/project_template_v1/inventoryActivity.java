@@ -40,10 +40,11 @@ public class inventoryActivity extends AppCompatActivity {
         Cursor ItemsCursor = mDbHelperItems.fetchAllListOfItems();
         startManagingCursor(ItemsCursor);
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
-        Log.i("Number of Records"," :: "+ItemsCursor.getCount());
+        Log.i("Number of Item Records"," :: "+ItemsCursor.getCount());
 
         if (ItemsCursor.getCount() >= 1) {
             String[] from = new String[]{ListOfItems.item_Name};
+            //String[] from = new String[]{ListOfItems.the_Key};
 
             int[] to = new int[]{R.id.mytext2};
 

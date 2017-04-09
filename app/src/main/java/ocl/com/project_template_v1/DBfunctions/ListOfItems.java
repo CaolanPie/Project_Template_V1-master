@@ -18,8 +18,9 @@ public class ListOfItems {
     private static final int DATABASE_VERSION = 1; // initial DB Version
 
     // These are the names of the columns in our table
+    public static final String the_Key = "_id";
     public static final String KEY_ROWID = "ListNo";
-    public static final String item_Number = "ItemNumber";
+    public static final String item_Number = "itemNumber";
     public static final String item_Name = "ItemName";
     public static final String item_serial = "SerialNumber";
     public static final String date_purchased = "DatePurchased";
@@ -32,14 +33,15 @@ public class ListOfItems {
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE + " ("
+                    + the_Key + " integer primary key autoincrement, "
                     + KEY_ROWID + " integer not null, "
                     + item_Number + " integer not null, "
                     + item_Name + " text not null, "
                     + item_serial + " text not null, "
                     + date_purchased + " text not null, "
                     + warranty + " text not null, "
-                    + warranty_date + " text,"
-                    + "PRIMARY KEY ( " + KEY_ROWID + ", " + item_Number + "))";
+                    + warranty_date + " text"
+                    + ")";
 
     // above SQL statment translates to
     // create table ListOfItems ( _id integer primary key autoincrement,
@@ -55,7 +57,6 @@ public class ListOfItems {
 		1	    3	        Headset	  293129304     19-Feb-2017    N        N/A
 
 	 */
-
     private final Context mCtx;
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -83,7 +84,6 @@ public class ListOfItems {
      *
      * @return .mCtx
      */
-
     public ListOfItems(Context ctx) {
         this.mCtx = ctx;
     }
@@ -96,7 +96,6 @@ public class ListOfItems {
      * @return this(DB adaptor)
      * throws SQLException - if it fails to open a DB it returns an exception.
      */
-
     public ListOfItems open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
@@ -110,7 +109,6 @@ public class ListOfItems {
      *
      * @return NONE
      */
-
     public void close() {
         mDbHelper.close();
     }
@@ -131,6 +129,7 @@ public class ListOfItems {
      * @return rowId (if successful) or -1 if failed
      */
     public long createListOfItemsRow(int ListNo,
+                                     int ItemNumber,
                                      String ItemName,
                                      String SerialNumber,
                                      String DatePurchased,
@@ -138,6 +137,7 @@ public class ListOfItems {
                                      String WarrantyExpiration) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ROWID, ListNo);
+        initialValues.put(item_Number, ItemNumber);
         initialValues.put(item_Name, ItemName);
         initialValues.put(item_serial, SerialNumber);
         initialValues.put(date_purchased, DatePurchased);
@@ -154,7 +154,6 @@ public class ListOfItems {
      *
      * @return rowId
      */
-
     public boolean deleteListOfItemsRow(long rowId) {
         return
                 mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
@@ -167,9 +166,8 @@ public class ListOfItems {
      *
      * @return string[] - a list of all the Lists in our table
      */
-
     public Cursor fetchAllListOfItems() {
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, item_Name,
+        return mDb.query(DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number, item_Name,
                 item_serial, date_purchased, warranty, warranty_date}, null, null, null, null, null);
     }
 
@@ -180,10 +178,9 @@ public class ListOfItems {
      *
      * @return mCursor - a cursor pointing to the required ListOfLists Row
      */
-
     public Cursor fetchListOfItemsRow(long rowId) throws SQLException {
         Cursor mCursor =
-                mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
+                mDb.query(true, DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number,
                                 item_Name, item_serial, date_purchased, warranty, warranty_date}, KEY_ROWID + "=" + rowId,
                         null, null, null, null, null);
         if (mCursor != null) {
@@ -204,9 +201,9 @@ public class ListOfItems {
      *
      * @return true if update was successful
      */
-
     public boolean updateListOfItemsRow(long rowId,
-                                        String ListNo,
+                                        int ListNo,
+                                        int ItemNumber,
                                         String ItemName,
                                         String SerialNumber,
                                         String DatePurchased,
@@ -214,6 +211,7 @@ public class ListOfItems {
                                         String WarrantyExpiration) {
         ContentValues args = new ContentValues();
         args.put(KEY_ROWID, ListNo);
+        args.put(item_Number, ListNo);
         args.put(item_Name, ItemName);
         args.put(item_serial, SerialNumber);
         args.put(date_purchased, DatePurchased);
