@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         );
-        /**
+        /*
          * mDbHelperLists below is creating and opening the database for ListOfLIsts
          */
         // Read my ListOfLists table
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
         */
-        /**
+        /*
          * mDbHelperItems below is creating and opening the database for ListOfItems
          */
         /*
