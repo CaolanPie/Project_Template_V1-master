@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         );
-        /**
+        /*
          * mDbHelperLists below is creating and opening the database for ListOfLIsts
          */
         // Read my ListOfLists table
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
         */
-        /**
+        /*
          * mDbHelperItems below is creating and opening the database for ListOfItems
          */
         /*
@@ -91,6 +92,17 @@ public class MainActivity extends AppCompatActivity {
         */
 
         // GetAllLists();  // Get all records from my List of Items table
+
+        Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+        spinner.setOnItemSelectedListener(this);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
     } // end of onCreate
 
     /**
