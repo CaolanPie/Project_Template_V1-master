@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,22 +30,22 @@ import java.util.Arrays;
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
-public class MainActivity extends AppCompatActivity {
-    /*
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
     private ListOfLists mDbHelperLists;
-    private ListOfItems mDbHelperItems;
-    private ListView MyItemsView;
-    private ListView MyListsView;
-*/
+    //private ListOfItems mDbHelperItems;
+    //private ListView MyItemsView;
+    //private ListView MyListsView;
+    private String currentList;
+    private int currentListNo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
         ListView ll=(ListView) findViewById(R.id.list_messages);
-
 
         ArrayList<String> myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
         myArrayList.clear();        // Clear our list
@@ -55,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
         // The next line called the routing which will populate our list of messages
         populateMyList(myArrayList);
 
+        //This is for my spinner
+        ArrayList<String> spinnerArray = new ArrayList<String> (Arrays.asList("Default"));
+        spinnerArray.clear(); //remove this line for testing
+
+        mDbHelperLists = new ListOfLists(this);
+        mDbHelperLists.open();
+
+        populateSpinnerLists(spinnerArray);
         // get ID's of our two lists
         //MyListsView = (ListView) findViewById(R.id.list_of_lists);
         //MyItemsView = (ListView) findViewById(R.id.list_of_items);
@@ -96,14 +105,33 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
         spinner.setOnItemSelectedListener(this);
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
+        //ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+                //R.array.planets_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+        android.R.layout.simple_spinner_item, spinnerArray);
 // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(spinnerAdapter);
 
     } // end of onCreate
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+
+        //Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+        //spinner.setOnItemSelectedListener(this);
+        Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
+
+        currentList = parent.getItemAtPosition(pos).toString();
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
 
     /**
      * The scanPage starts the activity to open the barcode scanner
@@ -123,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
     public void inventoryPage(View view) {
 
         Intent intent = new Intent(this, inventoryActivity.class);
+        intent.putExtra("selectedList", currentList);
+        intent.putExtra("selectedListNo", mDbHelperLists.fetchListOfListsRowByName(currentList));
         startActivity(intent);
     }
 
@@ -188,6 +218,39 @@ public class MainActivity extends AppCompatActivity {
 
     } // End of populateMyList
 
+    private void populateSpinnerLists(ArrayList<String> spinnerArray) {
+        Log.i(">> MainActivity"," :: populateSpinnerLists");
+
+        Cursor ListsCursor = mDbHelperLists.fetchAllListOfLists();
+        startManagingCursor(ListsCursor);
+
+        if(ListsCursor != null) {
+            Log.i("Number of List Records"," :: "+ListsCursor.getCount());
+            ListsCursor.moveToFirst();
+
+            //String term = c.getString(c.getColumnIndex("term")));
+            do {
+                String listName = ListsCursor.getString(ListsCursor.getColumnIndex("Name"));
+                int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
+                spinnerArray.add(listName);
+            } while (ListsCursor.moveToNext());
+        }
+
+        /*
+        if (ListsCursor.getCount() >= 1) {
+            String[] from = new String[]{ListOfLists.KEY_Name};
+
+            int[] to = new int[]{R.id.mytext};
+
+            SimpleCursorAdapter ListOfLists =
+                    new SimpleCursorAdapter(this, R.layout.list_single_row,
+                            ListsCursor, from, to);
+            MyListsView.setAdapter(ListOfLists);
+        }
+        */
+
+
+    }
 
     /**
         This routine gets all the lists for the ListOfLists page,

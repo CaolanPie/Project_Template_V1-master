@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 
@@ -24,20 +25,33 @@ public class inventoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inventory);
 
         Intent intent = getIntent();
+
+        //String firstKeyName = myIntent.getStringExtra("firstKeyName"); // will return "FirstKeyValue"
+        String targetListname = intent.getStringExtra("selectedList");
+        TextView mTextView = (TextView) findViewById(R.id.nameofList);
+        mTextView.setText(targetListname);
+        int myListNumber = intent.getIntExtra("selectedListNo", 0);
+
+
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_inventory);
 
         MyItemsView = (ListView) findViewById(R.id.list_of_items);
 
         mDbHelperItems = new ListOfItems(this);
         mDbHelperItems.open();
-        GetAllItems(); // Get all records from my List of Items table
+        GetAllItems(myListNumber); // Get all records from my List of Items table
 
     }
 
-    private void GetAllItems() {
+    /**
+     * GetAllItems for our selected inventory list number
+     *
+     * @param myListNo - the number of my list to get items from
+     */
+    private void GetAllItems(int myListNo) {
         Log.i(">> MainActivity"," :: GetAllItems");
 
-        Cursor ItemsCursor = mDbHelperItems.fetchAllListOfItems();
+        Cursor ItemsCursor = mDbHelperItems.fetchAllListOfItems(myListNo);
         startManagingCursor(ItemsCursor);
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
         Log.i("Number of Item Records"," :: "+ItemsCursor.getCount());

@@ -172,7 +172,6 @@ public class ListOfLists {
      *
      * @return mCursor - a cursor pointing to the required ListOfLists Row
      */
-
     public Cursor fetchListOfListsRow(long rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
@@ -182,6 +181,25 @@ public class ListOfLists {
             mCursor.moveToFirst();
         }
         return mCursor;
+    }
+
+    /**
+     * Returns the list number of a given list name
+     *
+     * @param listName - the name of the selected list
+     *
+     * @return myListNo - the list number based on the list name
+     */
+    public int fetchListOfListsRowByName(String listName) throws SQLException {
+        Cursor mCursor =
+                mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
+                                KEY_Name}, KEY_Name + "=" + "'" + listName + "'",
+                        null, null, null, null, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        int myListNo = mCursor.getInt(mCursor.getColumnIndex(KEY_ROWID));
+        return myListNo;
     }
 
     /**

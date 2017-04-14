@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created by Caolán on 28/03/2017.
  */
@@ -169,6 +171,18 @@ public class ListOfItems {
     public Cursor fetchAllListOfItems() {
         return mDb.query(DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number, item_Name,
                 item_serial, date_purchased, warranty, warranty_date}, null, null, null, null, null);
+    }
+
+    /**
+     * fetches ALL the ListOfItems with a given listNo
+     *
+     * @param myListNo - list number to be passed so you know which to call
+     *
+     * @return string[] - a list of all the Lists in our table
+     */
+    public Cursor fetchAllListOfItems(int myListNo) {
+        return mDb.query(DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number, item_Name,
+                item_serial, date_purchased, warranty, warranty_date}, "ListNo = " + valueOf(myListNo), null, null, null, null);
     }
 
     /**
