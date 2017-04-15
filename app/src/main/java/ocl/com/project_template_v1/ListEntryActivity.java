@@ -24,6 +24,7 @@ public class ListEntryActivity extends AppCompatActivity {
     private Button mSaveButton;
     private Button mCancelButton;
     private EditText mNameBox;
+    private EditText mDescriptionBox;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class ListEntryActivity extends AppCompatActivity {
         mSaveButton = (Button) findViewById(R.id.save_button);
         mCancelButton = (Button) findViewById(R.id.cancel_button);
         mNameBox = (EditText) findViewById (R.id.list_name);
+        mDescriptionBox = (EditText) findViewById(R.id.description_text);
 
         //this detects when the button itself is pressed
         // this calls a routine which will setup the detection of the buttons
@@ -70,6 +72,7 @@ public class ListEntryActivity extends AppCompatActivity {
                         //		inserts the new row in our database
                         mDbHelperLists.createListOfListsRow(
                                 mNameBox.getText().toString(),
+                                mDescriptionBox.getText().toString(),
                                 "second string",
                                 "third string");
                         //Fix these later ^

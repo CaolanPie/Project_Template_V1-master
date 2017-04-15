@@ -20,6 +20,7 @@ public class listsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
+        Log.i(">> listsActivity"," :: onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
 
@@ -34,7 +35,7 @@ public class listsActivity extends AppCompatActivity {
     }
 
     private void GetAllLists() {
-        Log.i(">> MainActivity"," :: GetAllLists");
+        Log.i(">> listsActivity"," :: GetAllLists");
 
         Cursor ListsCursor = mDbHelperLists.fetchAllListOfLists();
         startManagingCursor(ListsCursor);
@@ -58,14 +59,20 @@ public class listsActivity extends AppCompatActivity {
 
 
     public void listEntryPage(View view) {
+        Log.i(">> listsActivity"," :: listEntryPage");
 
         Intent intent = new Intent(this, ListEntryActivity.class);
         startActivity(intent);
     }
 
-
+    public void onResume(){
+        Log.i(">> listsActivity"," :: onResume");
+        super.onResume();
+        GetAllLists();
+    }
 
     public void backPage(View view) {
+        Log.i(">> listsActivity"," :: backPage");
 // nothing in the function yet .. just finish
         finish();
     }

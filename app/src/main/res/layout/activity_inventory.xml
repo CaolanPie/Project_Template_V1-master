@@ -9,14 +9,16 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="187dp"
+        android:layout_width="118dp"
+        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="List" />
+        android:text="List Name:" />
 
     <TextView
         android:id="@+id/nameofList"
-        android:layout_width="192dp"
-        android:layout_height="wrap_content" />
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" />
 
     <ListView
         android:id="@+id/list_of_items"

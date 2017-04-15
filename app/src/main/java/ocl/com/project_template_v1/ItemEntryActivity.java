@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
@@ -23,6 +24,8 @@ public class ItemEntryActivity extends AppCompatActivity {
     private EditText mNameBox;
     private EditText mSerialBox;
     private EditText mDateBox;
+    private String targetListname;
+    private int myListNumber;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -31,6 +34,11 @@ public class ItemEntryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ViewGroup layout = (ViewGroup) findViewById(R.id.item_entry);
+
+        targetListname = intent.getStringExtra("selectedList");
+        TextView mTextView = (TextView) findViewById(R.id.nameofList);
+        mTextView.setText(targetListname);
+        myListNumber = intent.getIntExtra("selectedListNo", 0);
 
         mDbHelperItems = new ListOfItems(this);
         mDbHelperItems.open();
@@ -66,8 +74,8 @@ public class ItemEntryActivity extends AppCompatActivity {
                         // This line actually calls our createListOfListsRow which then
                         //		inserts the new row in our database
                         mDbHelperItems.createListOfItemsRow(
-                                1,
-                                1,
+                                myListNumber, //List number
+                                1, //Item number
                                 mNameBox.getText().toString(),
                                 mSerialBox.getText().toString(),
                                 mDateBox.getText().toString(),

@@ -8,10 +8,25 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/title"
+        android:layout_width="118dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="List Name:" />
+
+    <TextView
+        android:id="@+id/nameofList"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" />
+
+    <!---
+    <TextView
         android:id="@+id/name_of_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enter Name of Item:" />
+        -->
 
     <EditText
         android:id="@+id/item_name"
@@ -19,7 +34,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Item Name" />
+        android:hint="Item Name" />
 
     <EditText
         android:id="@+id/serial_number"
@@ -27,7 +42,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Serial Number" />
+        android:hint="Serial Number" />
 
     <EditText
         android:id="@+id/date_purchased"
@@ -35,7 +50,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Date Purchased" />
+        android:hint="Date Purchased" />
 
     <Button
         android:id="@+id/save_button"

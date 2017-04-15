@@ -87,7 +87,7 @@
         android:layout_alignParentEnd="true" />
 
     <Spinner
-        android:id="@+id/planets_spinner"
+        android:id="@+id/lists_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/inventory_button"

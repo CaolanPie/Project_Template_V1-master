@@ -18,19 +18,23 @@ public class inventoryActivity extends AppCompatActivity {
 
     private ListOfItems mDbHelperItems;
     private ListView MyItemsView;
+    private String targetListname;
+    private int myListNumber;
+
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
+        Log.i(">> inventorActivity"," :: onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
         Intent intent = getIntent();
 
         //String firstKeyName = myIntent.getStringExtra("firstKeyName"); // will return "FirstKeyValue"
-        String targetListname = intent.getStringExtra("selectedList");
+        targetListname = intent.getStringExtra("selectedList");
         TextView mTextView = (TextView) findViewById(R.id.nameofList);
         mTextView.setText(targetListname);
-        int myListNumber = intent.getIntExtra("selectedListNo", 0);
+        myListNumber = intent.getIntExtra("selectedListNo", 0);
 
 
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_inventory);
@@ -40,7 +44,6 @@ public class inventoryActivity extends AppCompatActivity {
         mDbHelperItems = new ListOfItems(this);
         mDbHelperItems.open();
         GetAllItems(myListNumber); // Get all records from my List of Items table
-
     }
 
     /**
@@ -49,7 +52,7 @@ public class inventoryActivity extends AppCompatActivity {
      * @param myListNo - the number of my list to get items from
      */
     private void GetAllItems(int myListNo) {
-        Log.i(">> MainActivity"," :: GetAllItems");
+        Log.i(">> inventorActivity"," :: GetAllItems");
 
         Cursor ItemsCursor = mDbHelperItems.fetchAllListOfItems(myListNo);
         startManagingCursor(ItemsCursor);
@@ -72,12 +75,22 @@ public class inventoryActivity extends AppCompatActivity {
     }
 
     public void itemEntryPage(View view) {
+        Log.i(">> inventorActivity"," :: itemEntryPage");
 
         Intent intent = new Intent(this, ItemEntryActivity.class);
+        intent.putExtra("selectedList", targetListname);
+        intent.putExtra("selectedListNo", myListNumber);
         startActivity(intent);
     }
 
+    public void onResume(){
+        Log.i(">> inventorActivity"," :: onResume");
+        super.onResume();
+        GetAllItems(myListNumber);
+    }
+
     public void backPage(View view) {
+        Log.i(">> inventorActivity"," :: backPage");
 // nothing in the function yet .. just finish
         finish();
     }

@@ -38,10 +38,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //private ListView MyListsView;
     private String currentList;
     private int currentListNo;
+    private ArrayList<String> spinnerArray;
+    private ArrayAdapter<String> spinnerAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(">> MainActivity"," :: onCreate");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         populateMyList(myArrayList);
 
         //This is for my spinner
-        ArrayList<String> spinnerArray = new ArrayList<String> (Arrays.asList("Default"));
+        spinnerArray = new ArrayList<String> (Arrays.asList("Default"));
         spinnerArray.clear(); //remove this line for testing
 
         mDbHelperLists = new ListOfLists(this);
@@ -102,12 +105,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // GetAllLists();  // Get all records from my List of Items table
 
-        Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
         spinner.setOnItemSelectedListener(this);
 // Create an ArrayAdapter using the string array and a default spinner layout
         //ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
                 //R.array.planets_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+        spinnerAdapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_spinner_item, spinnerArray);
 // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+        Log.i(">> MainActivity"," :: onItemSelected");
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
 
@@ -130,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
+        Log.i(">> MainActivity"," :: onNothingSelected");
         // Another interface callback
     }
 
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * @param view
      */
     public void scanPage(View view) {
-
+        Log.i(">> MainActivity"," :: scanPage");
         Intent intent = new Intent(this, BarcodeCaptureActivity.class);
         startActivity(intent);
     }
@@ -149,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * @param view
      */
     public void inventoryPage(View view) {
-
+        Log.i(">> MainActivity"," :: inventoryPage");
         Intent intent = new Intent(this, inventoryActivity.class);
         intent.putExtra("selectedList", currentList);
         intent.putExtra("selectedListNo", mDbHelperLists.fetchListOfListsRowByName(currentList));
@@ -161,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * @param view
      */
     public void listsPage(View view) {
-
+        Log.i(">> MainActivity"," :: listsPage");
         Intent intent = new Intent(this, listsActivity.class);
         startActivity(intent);
     }
@@ -172,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * @param view
      */
     public void settingsPage(View view) {
-
+        Log.i(">> MainActivity"," :: settingsPage");
         Intent intent = new Intent(this, settingsActivity.class);
         startActivity(intent);
     }
@@ -199,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i(">> MainActivity"," :: onCreateOptionsMenu");
         super.onCreateOptionsMenu(menu);
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_main, menu);
@@ -211,12 +217,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      *      @param myArrayList
      */
     private void populateMyList(ArrayList<String> myArrayList) {
-
+        Log.i(">> MainActivity"," :: populateMyList");
         myArrayList.add("Added by PopulateMyList");
         myArrayList.add("Also Added by PopulateMyList");
         myArrayList.add("moo");
 
     } // End of populateMyList
+
+    public void onResume(){
+        Log.i(">> MainActivity"," :: onResume");
+        super.onResume();
+        spinnerArray.clear();
+        populateSpinnerLists(spinnerArray);
+        //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
+        spinnerAdapter.notifyDataSetChanged();
+    }
 
     private void populateSpinnerLists(ArrayList<String> spinnerArray) {
         Log.i(">> MainActivity"," :: populateSpinnerLists");
@@ -226,14 +241,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if(ListsCursor != null) {
             Log.i("Number of List Records"," :: "+ListsCursor.getCount());
-            ListsCursor.moveToFirst();
+            if(ListsCursor.getCount() != 0){
+                ListsCursor.moveToFirst();
 
-            //String term = c.getString(c.getColumnIndex("term")));
-            do {
-                String listName = ListsCursor.getString(ListsCursor.getColumnIndex("Name"));
-                int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
-                spinnerArray.add(listName);
-            } while (ListsCursor.moveToNext());
+                //String term = c.getString(c.getColumnIndex("term")));
+                do {
+                    String listName = ListsCursor.getString(ListsCursor.getColumnIndex("Name"));
+                    int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
+                    spinnerArray.add(listName);
+                } while (ListsCursor.moveToNext());
+            } else {
+                spinnerArray.add("No Lists Currently");
+            }
         }
 
         /*

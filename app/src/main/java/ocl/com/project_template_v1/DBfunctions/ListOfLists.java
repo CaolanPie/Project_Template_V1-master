@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.EventLogTags;
 import android.util.Log;
 
 /**
@@ -29,6 +30,7 @@ public class ListOfLists {
     // These are the names of the columns in our table
     public static final String KEY_ROWID = "_id";
     public static final String KEY_Name = "Name";
+    public static final String KEY_Description = "Description";
     public static final String KEY_DateCreated = "DateCreated";
     public static final String KEY_LastEdited = "LastEdited";
 
@@ -40,21 +42,23 @@ public class ListOfLists {
             "create table " + DATABASE_TABLE + " ("
                     + KEY_ROWID + " integer primary key autoincrement, "
                     + KEY_Name + " text not null, "
+                    + KEY_Description + " text not null, "
                     + KEY_DateCreated + " text not null, "
                     + KEY_LastEdited + " text not null);";
 
-    // above SQL statment translates to
+    // above SQL statement translates to
     // create table ListOfLists ( _id integer primary key autoincrement,
     // 							Name text not null,
+    //                          Description text not null,
     //                          DateCreated text not null,
     //							LastEdited text not null);
 	/*
 	The table would look like this (column names on top)
-	   _id	Name		DateCreated	LastEdited
-	   ===	===========	=========== =========
-		1	Work		02-Jan-2017	02-Jan-2017
-		2	LivingRoom	02-Feb-2017	02-Feb-2017
-		3	Upstairs	02-Apr-2017	02-Apr-2017
+	   _id	Name		Description DateCreated	LastEdited
+	   ===	===========	=========== =========   ===========
+		1	Work		work stuff  02-Jan-2017	02-Jan-2017
+		2	LivingRoom	TV stuff    02-Feb-2017	02-Feb-2017
+		3	Upstairs	up stuff    02-Apr-2017	02-Apr-2017
 
 	 */
 
@@ -85,7 +89,6 @@ public class ListOfLists {
      *
      * @return .mCtx
      */
-
     public ListOfLists(Context ctx) {
         this.mCtx = ctx;
     }
@@ -112,7 +115,6 @@ public class ListOfLists {
      *
      * @return NONE
      */
-
     public void close() {
         mDbHelper.close();
     }
@@ -124,17 +126,19 @@ public class ListOfLists {
      * for that row, otherwise return a -1 to indicate failure.
      *
      * @param name = name
+     * @param Description = a brief description of the lists contents
      * @param DateCreated = date when the list was created
      * @param LastEdited = date of when the user last edited this list
      *
      * @return rowId (if successful) or -1 if failed
      */
-
     public long createListOfListsRow(String name,
+                                     String Description,
                                 String DateCreated,
                                 String LastEdited) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_Name, name);
+        initialValues.put(KEY_Description, Description);
         initialValues.put(KEY_DateCreated, DateCreated);
         initialValues.put(KEY_LastEdited, LastEdited);
 
@@ -161,7 +165,7 @@ public class ListOfLists {
      * @return string[] - a list of all the Lists in our table
      */
     public Cursor fetchAllListOfLists() {
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_Name,
+        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_Name, KEY_Description,
                 KEY_DateCreated, KEY_LastEdited}, null, null, null, null, null);
     }
 
@@ -175,7 +179,7 @@ public class ListOfLists {
     public Cursor fetchListOfListsRow(long rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                                KEY_Name, KEY_DateCreated, KEY_LastEdited}, KEY_ROWID + "=" + rowId,
+                                KEY_Name, KEY_Description, KEY_DateCreated, KEY_LastEdited}, KEY_ROWID + "=" + rowId,
                         null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -205,19 +209,22 @@ public class ListOfLists {
     /**
      * saves changes to the ListOfLists row
      *
-     * input parameters rowId - the id of the row we want to update
-     * 				  name - name of the list
-     * 				  DateCreated - date the list was created
-     * 				  LastEdited - date that the list was last edited
+     * @param rowId - the id of the row we want to update
+     * @param name - name of the list
+     * @param Description - a brief description of the lists contents
+     * @param DateCreated - date the list was created
+     * @param LastEdited - date that the list was last edited
      *
      * @return true if update was successful
      */
     public boolean updateListOfListsRow(long rowId,
                                    String name,
+                                   String Description,
                                    String DateCreated,
                                    String LastEdited) {
         ContentValues args = new ContentValues();
         args.put(KEY_Name, name);
+        args.put(KEY_Description, Description);
         args.put(KEY_DateCreated, DateCreated);
         args.put(KEY_LastEdited, LastEdited);
 
