@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
@@ -32,6 +34,20 @@ public class listsActivity extends AppCompatActivity {
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
+
+        MyListsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+              int position, long id)
+            {
+                Log.i(">> listsActivity"," :: onItemClick");
+               // ... do something based on position ...
+                //Intent intent = new Intent(this, list_edit.class);
+                //putExtraData();
+                //startActivity(intent);
+                Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     private void GetAllLists() {
@@ -41,7 +57,6 @@ public class listsActivity extends AppCompatActivity {
         startManagingCursor(ListsCursor);
         // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
         Log.i("Number of List Records"," :: "+ListsCursor.getCount());
-
 
         if (ListsCursor.getCount() >= 1) {
             String[] from = new String[]{ListOfLists.KEY_Name};
@@ -60,7 +75,6 @@ public class listsActivity extends AppCompatActivity {
 
     public void listEntryPage(View view) {
         Log.i(">> listsActivity"," :: listEntryPage");
-
         Intent intent = new Intent(this, ListEntryActivity.class);
         startActivity(intent);
     }
