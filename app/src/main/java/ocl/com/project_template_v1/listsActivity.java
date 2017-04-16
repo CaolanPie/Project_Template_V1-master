@@ -20,6 +20,7 @@ public class listsActivity extends AppCompatActivity {
     private ListOfLists mDbHelperLists;
     private ListView MyListsView;
 
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         Log.i(">> listsActivity"," :: onCreate");
@@ -35,6 +36,7 @@ public class listsActivity extends AppCompatActivity {
         mDbHelperLists.open();
         GetAllLists();  // Get all records from my List of Lists table
 
+
         MyListsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
               int position, long id)
@@ -43,7 +45,12 @@ public class listsActivity extends AppCompatActivity {
                // ... do something based on position ...
                 //Intent intent = new Intent(this, list_edit.class);
                 //putExtraData();
-                //startActivity(intent);
+
+                Intent list_edit_intent = new Intent(listsActivity.this, list_edit.class);
+                startActivity(list_edit_intent);
+
+
+
                 Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
             }
