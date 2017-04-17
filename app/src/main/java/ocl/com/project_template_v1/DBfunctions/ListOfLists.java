@@ -212,7 +212,6 @@ public class ListOfLists {
      * @param rowId - the id of the row we want to update
      * @param name - name of the list
      * @param Description - a brief description of the lists contents
-     * @param DateCreated - date the list was created
      * @param LastEdited - date that the list was last edited
      *
      * @return true if update was successful
@@ -220,12 +219,12 @@ public class ListOfLists {
     public boolean updateListOfListsRow(long rowId,
                                    String name,
                                    String Description,
-                                   String DateCreated,
+                                   //String DateCreated,
                                    String LastEdited) {
         ContentValues args = new ContentValues();
         args.put(KEY_Name, name);
         args.put(KEY_Description, Description);
-        args.put(KEY_DateCreated, DateCreated);
+        //args.put(KEY_DateCreated, DateCreated);
         args.put(KEY_LastEdited, LastEdited);
 
         return

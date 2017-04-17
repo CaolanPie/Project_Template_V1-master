@@ -104,7 +104,7 @@ public class list_edit extends AppCompatActivity {
         myEnteredDesc = descTextView.getText().toString();
 
         mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc,
-                "Created", "Edited"); //Last two are wrong
+                "Edited"); //Last one is wrong
         finish();
     }
 
