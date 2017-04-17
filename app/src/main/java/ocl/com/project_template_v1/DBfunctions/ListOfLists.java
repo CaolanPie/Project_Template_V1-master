@@ -40,7 +40,7 @@ public class ListOfLists {
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE + " ("
-                    + KEY_ROWID + " integer primary key autoincrement, "
+                    + KEY_ROWID + " long primary key autoincrement, "
                     + KEY_Name + " text not null, "
                     + KEY_Description + " text not null, "
                     + KEY_DateCreated + " text not null, "
@@ -172,7 +172,7 @@ public class ListOfLists {
     /**
      * Retrieves a SINGLE row of ListOfLists based on the rowid
      *
-     * input parameters rowId - description not found
+     * @param rowId - the SQL rowId
      *
      * @return mCursor - a cursor pointing to the required ListOfLists Row
      */

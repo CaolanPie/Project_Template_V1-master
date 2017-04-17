@@ -19,6 +19,8 @@ public class listsActivity extends AppCompatActivity {
 
     private ListOfLists mDbHelperLists;
     private ListView MyListsView;
+    private String currentList;
+    private int currentListNo;
 
 
     @Override
@@ -47,9 +49,10 @@ public class listsActivity extends AppCompatActivity {
                 //putExtraData();
 
                 Intent list_edit_intent = new Intent(listsActivity.this, list_edit.class);
+                currentListNo = (int)id; //fix this later
+                list_edit_intent.putExtra("selectedList", "fred");
+                list_edit_intent.putExtra("selectedListNo", currentListNo);
                 startActivity(list_edit_intent);
-
-
 
                 Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 

@@ -13,6 +13,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
+import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
 public class inventoryActivity extends AppCompatActivity {
 
@@ -20,7 +21,6 @@ public class inventoryActivity extends AppCompatActivity {
     private ListView MyItemsView;
     private String targetListname;
     private int myListNumber;
-
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
