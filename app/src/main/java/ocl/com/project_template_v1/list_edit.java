@@ -65,9 +65,10 @@ public class list_edit extends AppCompatActivity {
         TextView nameTextView = (TextView)findViewById(R.id.nameofList);
         nameTextView.setText(listName);
 
-        String listDesciption = ListsCursor.getString(ListsCursor.getColumnIndex("Description"));
+        //Get List Description from row returned
+        String listDescription = ListsCursor.getString(ListsCursor.getColumnIndex("Description"));
         TextView descTextView = (TextView)findViewById(R.id.description_text);
-        descTextView.setText(listDesciption);
+        descTextView.setText(listDescription);
 
         // int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
 
@@ -83,6 +84,27 @@ public class list_edit extends AppCompatActivity {
         Log.i(">> list_edit"," :: deleteRow");
 // nothing in the function yet .. just finish
         mDbHelperLists.deleteListOfListsRow(listNumber);
+        finish();
+    }
+
+    public void updateRow(View view) {
+        String myEnteredName;
+        String myEnteredDesc;
+
+        Log.i(">> list_edit"," :: updateRow");
+// nothing in the function yet .. just finish
+        //EditText et=(EditText)findViewById(R.id.entry);
+        //txt=et.getText().toString();
+        TextView nameTextView = (TextView)findViewById(R.id.nameofList);
+        //nameTextView.setText(listName);
+        myEnteredName = nameTextView.getText().toString();
+
+        TextView descTextView = (TextView)findViewById(R.id.description_text);
+        //descTextView.setText(listDescription);
+        myEnteredDesc = descTextView.getText().toString();
+
+        mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc,
+                "Created", "Edited"); //Last two are wrong
         finish();
     }
 

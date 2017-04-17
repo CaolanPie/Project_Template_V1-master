@@ -40,10 +40,11 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/save_button"
+        android:id="@+id/update_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:onClick="updateRow"
+        android:text="Update" />
 
     <Button
         android:id="@+id/cancel_button"
