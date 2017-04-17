@@ -76,13 +76,11 @@ public class list_edit extends AppCompatActivity {
 
     public void backPage(View view) {
         Log.i(">> list_edit"," :: backPage");
-// nothing in the function yet .. just finish
         finish();
     }
 
     public void deleteRow(View view) {
         Log.i(">> list_edit"," :: deleteRow");
-// nothing in the function yet .. just finish
         mDbHelperLists.deleteListOfListsRow(listNumber);
         finish();
     }
@@ -92,15 +90,10 @@ public class list_edit extends AppCompatActivity {
         String myEnteredDesc;
 
         Log.i(">> list_edit"," :: updateRow");
-// nothing in the function yet .. just finish
-        //EditText et=(EditText)findViewById(R.id.entry);
-        //txt=et.getText().toString();
         TextView nameTextView = (TextView)findViewById(R.id.nameofList);
-        //nameTextView.setText(listName);
         myEnteredName = nameTextView.getText().toString();
 
         TextView descTextView = (TextView)findViewById(R.id.description_text);
-        //descTextView.setText(listDescription);
         myEnteredDesc = descTextView.getText().toString();
 
         mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc,
