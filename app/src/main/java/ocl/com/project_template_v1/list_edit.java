@@ -74,8 +74,8 @@ public class list_edit extends AppCompatActivity {
      */
     public void deleteRow(View view) {
         Log.i(">> list_edit"," :: deleteRow");
-        mDbHelperLists.deleteListOfListsRow(listNumber);
-        finish();
+        mDbHelperLists.deleteListOfListsRow(listNumber, view);
+        //finish();
     }
 
     /**

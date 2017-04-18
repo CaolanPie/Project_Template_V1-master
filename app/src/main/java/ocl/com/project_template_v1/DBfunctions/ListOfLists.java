@@ -2,12 +2,17 @@ package ocl.com.project_template_v1.DBfunctions;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v7.app.AlertDialog;
 import android.util.EventLogTags;
 import android.util.Log;
+import android.view.View;
+
+import ocl.com.project_template_v1.list_edit;
 
 /**
  * Created by Caolán on 26/03/2017.
@@ -37,6 +42,7 @@ public class ListOfLists {
 
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
+    private int ourTargetRowID;
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE + " ("
@@ -63,6 +69,8 @@ public class ListOfLists {
 	 */
 
     private final Context mCtx;
+
+
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
@@ -152,9 +160,46 @@ public class ListOfLists {
      *
      * @return rowId
      */
-    public boolean deleteListOfListsRow(int rowId) {
-        return
-                mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+    public boolean deleteListOfListsRow(int rowId, View view) {
+        ourTargetRowID = rowId;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+
+        // set title
+        alertDialogBuilder.setTitle("Delete");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Are you sure you want to Delete this list?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfLists"," :: delete = yes");
+                        // if this button is clicked
+                        // we have a confirmation so delete record
+                        mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + ourTargetRowID, null);
+                        //view.finish();
+                        dialog.cancel();
+
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfLists"," :: delete = no");
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+        return true; /// maybe change this later
+
     }
 
     /**

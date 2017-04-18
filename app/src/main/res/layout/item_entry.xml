@@ -7,6 +7,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayoutCompat5">
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayoutCompat4">
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="118dp"
@@ -52,16 +67,34 @@
         android:inputType="textPersonName"
         android:hint="Date Purchased" />
 
+    <EditText
+        android:id="@+id/warranty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Warranty Y/N" />
+
+    <EditText
+        android:id="@+id/warranty_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Warranty Expiration Date" />
+
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/cancel_button"
         android:text="Save" />
 
     <Button
         android:id="@+id/cancel_button"
-        android:onClick="backPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/warranty_date"
+        android:onClick="backPage"
         android:text="Cancel" />
 </LinearLayout>

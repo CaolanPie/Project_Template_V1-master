@@ -24,6 +24,8 @@ public class ItemEntryActivity extends AppCompatActivity {
     private EditText mNameBox;
     private EditText mSerialBox;
     private EditText mDateBox;
+    private EditText mWarrantyBox;
+    private EditText mWarrantyDateBox;
     private String targetListname;
     private int myListNumber;
 
@@ -48,6 +50,8 @@ public class ItemEntryActivity extends AppCompatActivity {
         mNameBox = (EditText) findViewById (R.id.item_name);
         mSerialBox = (EditText) findViewById (R.id.serial_number);
         mDateBox = (EditText) findViewById (R.id.date_purchased);
+        mWarrantyBox = (EditText) findViewById (R.id.warranty);
+        mWarrantyDateBox = (EditText) findViewById (R.id.warranty_date);
 
         //this detects when the button itself is pressed
         // this calls a routine which will setup the detection of the buttons
@@ -79,8 +83,8 @@ public class ItemEntryActivity extends AppCompatActivity {
                                 mNameBox.getText().toString(),
                                 mSerialBox.getText().toString(),
                                 mDateBox.getText().toString(),
-                                "Y",
-                                "forever");
+                                mWarrantyBox.getText().toString(),
+                                mWarrantyDateBox.getText().toString());
                         //Fix these later ^
                         Toast.makeText(ItemEntryActivity.this,
                                 "Details saved.",

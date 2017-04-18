@@ -6,12 +6,26 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/title_listno"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="List Number:" />
+
     <EditText
         android:id="@+id/list_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/title_itemno"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Item Number:" />
 
     <EditText
         android:id="@+id/item_number"
@@ -20,12 +34,26 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
+    <TextView
+        android:id="@+id/title_item_name"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Item Name:" />
+
     <EditText
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/title_serialno"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Serial Number:" />
 
     <EditText
         android:id="@+id/serial_number"
@@ -34,12 +62,40 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
+    <TextView
+        android:id="@+id/title_date"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Date Purchased:" />
+
+    <EditText
+        android:id="@+id/date_purchased"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/title_warranty"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Warranty Y/N:" />
+
     <EditText
         android:id="@+id/warranty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/title_warranty_date"
+        android:layout_width="221dp"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Warranty Expiration Date:" />
 
     <EditText
         android:id="@+id/warranty_date"

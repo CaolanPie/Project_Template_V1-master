@@ -31,6 +31,7 @@ public class item_edit extends AppCompatActivity {
     private int the_key;
     private String warranty;
     private String warrantyDate;
+    private String datePurchased;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -75,6 +76,11 @@ public class item_edit extends AppCompatActivity {
         TextView serialTextView = (TextView)findViewById(R.id.serial_number);
         serialTextView.setText(ItemSerial);
 
+        //Get date of purchase
+        String datePurchased = ItemsCursor.getString(ItemsCursor.getColumnIndex("DatePurchased"));
+        TextView dateTextView = (TextView)findViewById(R.id.date_purchased);
+        dateTextView.setText(datePurchased);
+
         //Get item warranty Y/N
         String warranty = ItemsCursor.getString(ItemsCursor.getColumnIndex("Warranty"));
         TextView warrantyTextView = (TextView)findViewById(R.id.warranty);
@@ -118,6 +124,9 @@ public class item_edit extends AppCompatActivity {
         int myEnteredItemNo;
         String myEnteredName;
         String myEnteredSerial;
+        String myEnteredDate;
+        String myEnteredWarranty;
+        String myEnteredWarrantyDate;
 
         Log.i(">> item_edit"," :: updateRow");
 
@@ -133,8 +142,17 @@ public class item_edit extends AppCompatActivity {
         TextView descTextView = (TextView)findViewById(R.id.serial_number);
         myEnteredSerial = descTextView.getText().toString();
 
+        TextView dateTextView = (TextView)findViewById(R.id.date_purchased);
+        myEnteredDate = dateTextView.getText().toString();
+
+        TextView warrantyTextView = (TextView)findViewById(R.id.warranty);
+        myEnteredWarranty = warrantyTextView.getText().toString();
+
+        TextView warrantyDTextView = (TextView)findViewById(R.id.warranty_date);
+        myEnteredWarrantyDate = warrantyDTextView.getText().toString();
+
         mDbHelperItems.updateListOfItemsRow(the_key, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
-                "TempDatePurchased", "TempWarranty", "TemptWarrantyDate"); //Last three are wrong
+                myEnteredDate, myEnteredWarranty, myEnteredWarrantyDate); //Last three are wrong
         finish();
     }
 
