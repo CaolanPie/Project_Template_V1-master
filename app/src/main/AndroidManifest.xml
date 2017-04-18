@@ -27,6 +27,7 @@
         <activity android:name=".ListEntryActivity"></activity>
         <activity android:name=".ItemEntryActivity"></activity>
         <activity android:name=".list_edit"></activity>
+        <activity android:name=".item_edit"></activity>
     </application>
 
 </manifest>

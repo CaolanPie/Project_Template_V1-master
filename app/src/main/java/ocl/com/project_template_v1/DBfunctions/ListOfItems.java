@@ -156,9 +156,9 @@ public class ListOfItems {
      *
      * @return rowId
      */
-    public boolean deleteListOfItemsRow(long rowId) {
+    public boolean deleteListOfItemsRow(int rowId) {
         return
-                mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+                mDb.delete(DATABASE_TABLE, the_Key + "=" + rowId, null) > 0;
     }
 
     /**
@@ -192,10 +192,10 @@ public class ListOfItems {
      *
      * @return mCursor - a cursor pointing to the required ListOfLists Row
      */
-    public Cursor fetchListOfItemsRow(long rowId) throws SQLException {
+    public Cursor fetchListOfItemsRow(int rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number,
-                                item_Name, item_serial, date_purchased, warranty, warranty_date}, KEY_ROWID + "=" + rowId,
+                                item_Name, item_serial, date_purchased, warranty, warranty_date}, the_Key + "=" + rowId,
                         null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -215,7 +215,7 @@ public class ListOfItems {
      *
      * @return true if update was successful
      */
-    public boolean updateListOfItemsRow(long rowId,
+    public boolean updateListOfItemsRow(int rowId,
                                         int ListNo,
                                         int ItemNumber,
                                         String ItemName,
@@ -233,7 +233,7 @@ public class ListOfItems {
         args.put(warranty_date, WarrantyExpiration);
 
         return
-                mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+                mDb.update(DATABASE_TABLE, args, the_Key + "=" + rowId, null) > 0;
     }
 
 }

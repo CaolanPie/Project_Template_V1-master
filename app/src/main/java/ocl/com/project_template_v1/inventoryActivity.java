@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
@@ -44,6 +46,26 @@ public class inventoryActivity extends AppCompatActivity {
         mDbHelperItems = new ListOfItems(this);
         mDbHelperItems.open();
         GetAllItems(myListNumber); // Get all records from my List of Items table
+
+        MyItemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                Log.i(">> inventoryActivity"," :: onItemClick");
+                // ... do something based on position ...
+                //Intent intent = new Intent(this, item_edit.class);
+                //putExtraData();
+
+                Intent item_edit_intent = new Intent(inventoryActivity.this, item_edit.class);
+                myListNumber = (int)id; //fix this later
+                item_edit_intent.putExtra("selectedItem", "fred");
+                item_edit_intent.putExtra("selectedItemNo", myListNumber);
+                startActivity(item_edit_intent);
+
+                Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     /**

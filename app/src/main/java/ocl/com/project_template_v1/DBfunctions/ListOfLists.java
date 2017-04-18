@@ -40,7 +40,7 @@ public class ListOfLists {
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE + " ("
-                    + KEY_ROWID + " long primary key autoincrement, "
+                    + KEY_ROWID + " integer primary key autoincrement, "
                     + KEY_Name + " text not null, "
                     + KEY_Description + " text not null, "
                     + KEY_DateCreated + " text not null, "
@@ -152,7 +152,7 @@ public class ListOfLists {
      *
      * @return rowId
      */
-    public boolean deleteListOfListsRow(long rowId) {
+    public boolean deleteListOfListsRow(int rowId) {
         return
                 mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
@@ -176,7 +176,7 @@ public class ListOfLists {
      *
      * @return mCursor - a cursor pointing to the required ListOfLists Row
      */
-    public Cursor fetchListOfListsRow(long rowId) throws SQLException {
+    public Cursor fetchListOfListsRow(int rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
                                 KEY_Name, KEY_Description, KEY_DateCreated, KEY_LastEdited}, KEY_ROWID + "=" + rowId,
@@ -216,7 +216,7 @@ public class ListOfLists {
      *
      * @return true if update was successful
      */
-    public boolean updateListOfListsRow(long rowId,
+    public boolean updateListOfListsRow(int rowId,
                                    String name,
                                    String Description,
                                    //String DateCreated,

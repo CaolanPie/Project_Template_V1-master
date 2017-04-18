@@ -14,7 +14,7 @@ import android.widget.TextView;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
 /**
- * Created by Tony on 15/04/2017.
+ * Created by Caolan on 15/04/2017.
  */
 
 public class list_edit extends AppCompatActivity {
@@ -41,21 +41,6 @@ public class list_edit extends AppCompatActivity {
 
         ViewGroup layout = (ViewGroup) findViewById(R.id.list_edit);
 
-        /*
-        MyListsView = (ListView) findViewById(R.id.list_of_lists);
-
-        mDbHelperLists = new ListOfLists(this);
-        mDbHelperLists.open();
-        GetAllLists();  // Get all records from my List of Lists table
-
-        */
-        // above SQL statement translates to
-        // create table ListOfLists ( _id integer primary key autoincrement,
-        // 							Name text not null,
-        //                          Description text not null,
-        //                          DateCreated text not null,
-        //							LastEdited text not null);
-
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
         Cursor ListsCursor = mDbHelperLists.fetchListOfListsRow(listNumber);
@@ -74,17 +59,29 @@ public class list_edit extends AppCompatActivity {
 
     }
 
+    /**
+     *  backPage returns to previous activity
+     * @param view
+     */
     public void backPage(View view) {
         Log.i(">> list_edit"," :: backPage");
         finish();
     }
 
+    /**
+     * deletes the current row
+     * @param view
+     */
     public void deleteRow(View view) {
         Log.i(">> list_edit"," :: deleteRow");
         mDbHelperLists.deleteListOfListsRow(listNumber);
         finish();
     }
 
+    /**
+     * saves and updates changes to the selected row with values from the current screen
+     * @param view
+     */
     public void updateRow(View view) {
         String myEnteredName;
         String myEnteredDesc;
