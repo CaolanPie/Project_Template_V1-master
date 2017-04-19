@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.io.StringBufferInputStream;
+import java.util.Date;
+import java.util.Locale;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
@@ -26,6 +31,8 @@ public class list_edit extends AppCompatActivity {
     private String ListDescription;
     private int listNumber;
     private int ourTargetRowID;
+    private String dateCreated;
+    private String lastEdited;
 
 
     @Override
@@ -54,13 +61,30 @@ public class list_edit extends AppCompatActivity {
         nameTextView.setText(listName);
 
         //Get List Description from row returned
-        String listDescription = ListsCursor.getString(ListsCursor.getColumnIndex("Description"));
+        String ListDescription = ListsCursor.getString(ListsCursor.getColumnIndex("Description"));
         TextView descTextView = (TextView)findViewById(R.id.description_text);
-        descTextView.setText(listDescription);
+        descTextView.setText(ListDescription);
+
+        String dateCreated = ListsCursor.getString(ListsCursor.getColumnIndex("DateCreated"));
+        TextView dateTextView = (TextView)findViewById(R.id.date_created);
+        //dateTextView.setText( convertDateFromSQLLite(dateCreated) );
+        dateTextView.setText( dateCreated );
+
+        String lastEdited = ListsCursor.getString(ListsCursor.getColumnIndex("LastEdited"));
+        TextView lastEdTextView = (TextView)findViewById(R.id.Last_edited);
+        //lastEdTextView.setText( convertDateFromSQLLite(listDescription));
+        lastEdTextView.setText(lastEdited);
 
         // int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
 
     }
+
+    private String convertDateFromSQLLite( String dateToConvert) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(dateToConvert);
+    }
+
 
     /**
      *  backPage returns to previous activity

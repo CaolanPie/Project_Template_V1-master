@@ -237,6 +237,7 @@ public class ListOfLists {
         ContentValues args = new ContentValues();
         args.put(KEY_Name, name);
         args.put(KEY_Description, Description);
+        args.put(KEY_LastEdited, getDateTime());
         
         return
                 mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
