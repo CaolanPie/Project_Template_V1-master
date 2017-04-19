@@ -49,7 +49,7 @@ public class ListOfLists {
                     + KEY_ROWID + " integer primary key autoincrement, "
                     + KEY_Name + " text not null, "
                     + KEY_Description + " text not null, "
-                    + KEY_DateCreated + " text not null, "
+                    + KEY_DateCreated + " integer not null, "
                     + KEY_LastEdited + " text not null);";
 
     // above SQL statement translates to
@@ -142,7 +142,7 @@ public class ListOfLists {
      */
     public long createListOfListsRow(String name,
                                      String Description,
-                                String DateCreated,
+                                     int DateCreated,
                                 String LastEdited) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_Name, name);

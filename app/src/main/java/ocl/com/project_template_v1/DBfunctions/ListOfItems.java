@@ -45,9 +45,9 @@ public class ListOfItems {
                     + item_Number + " integer not null, "
                     + item_Name + " text not null, "
                     + item_serial + " text not null, "
-                    + date_purchased + " text not null, "
+                    + date_purchased + " integer not null, "
                     + warranty + " text not null, "
-                    + warranty_date + " text"
+                    + warranty_date + " integer not null"
                     + ")";
 
     // above SQL statment translates to
@@ -139,9 +139,9 @@ public class ListOfItems {
                                      int ItemNumber,
                                      String ItemName,
                                      String SerialNumber,
-                                     String DatePurchased,
+                                     int DatePurchased,
                                      String Warranty,
-                                     String WarrantyExpiration) {
+                                     int WarrantyExpiration) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ROWID, ListNo);
         initialValues.put(item_Number, ItemNumber);
@@ -225,9 +225,9 @@ public class ListOfItems {
                                         int ItemNumber,
                                         String ItemName,
                                         String SerialNumber,
-                                        String DatePurchased,
+                                        int DatePurchased,
                                         String Warranty,
-                                        String WarrantyExpiration) {
+                                        int WarrantyExpiration) {
         ContentValues args = new ContentValues();
         args.put(KEY_ROWID, ListNo);
         args.put(item_Number, ListNo);
