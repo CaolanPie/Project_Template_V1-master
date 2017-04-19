@@ -1,5 +1,7 @@
 package ocl.com.project_template_v1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ public class list_edit extends AppCompatActivity {
     private String listName;
     private String ListDescription;
     private int listNumber;
+    private int ourTargetRowID;
 
 
     @Override
@@ -73,9 +76,48 @@ public class list_edit extends AppCompatActivity {
      * @param view
      */
     public void deleteRow(View view) {
-        Log.i(">> list_edit"," :: deleteRow");
-        mDbHelperLists.deleteListOfListsRow(listNumber, view);
+        //Log.i(">> list_edit"," :: deleteRow");
+        //mDbHelperLists.deleteListOfListsRow(listNumber);
         //finish();
+        //ourTargetRowID = rowId;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setTitle("Delete List");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Are you sure you want to delete this list?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfLists"," :: delete = yes");
+                        // if this button is clicked
+                        // we have a confirmation so delete record
+                        mDbHelperLists.deleteListOfListsRow(listNumber);
+                        //view.finish();
+                        finish();
+                        dialog.cancel();
+
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfLists"," :: delete = no");
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+        //return true; /// maybe change this later
     }
 
     /**

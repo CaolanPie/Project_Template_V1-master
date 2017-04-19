@@ -160,46 +160,9 @@ public class ListOfLists {
      *
      * @return rowId
      */
-    public boolean deleteListOfListsRow(int rowId, View view) {
-        ourTargetRowID = rowId;
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
-
-        // set title
-        alertDialogBuilder.setTitle("Delete List");
-
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("Are you sure you want to delete this list?")
-                .setCancelable(false)
-                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        Log.i(">> ListOfLists"," :: delete = yes");
-                        // if this button is clicked
-                        // we have a confirmation so delete record
-                        mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + ourTargetRowID, null);
-                        //view.finish();
-                        dialog.cancel();
-
-                    }
-                })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        Log.i(">> ListOfLists"," :: delete = no");
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-
-                    }
-                });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-
-        return true; /// maybe change this later
-
+    public boolean deleteListOfListsRow(int rowId) {
+        return
+                mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
     /**

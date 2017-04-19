@@ -1,5 +1,7 @@
 package ocl.com.project_template_v1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ public class item_edit extends AppCompatActivity {
     private String warranty;
     private String warrantyDate;
     private String datePurchased;
+    private int ourTargetRowID;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -109,9 +112,48 @@ public class item_edit extends AppCompatActivity {
      * @param view
      */
     public void deleteRow(View view) {
-        Log.i(">> item_edit"," :: deleteRow");
-        mDbHelperItems.deleteListOfItemsRow(itemNumber, view);
+        //Log.i(">> item_edit"," :: deleteRow");
+        //mDbHelperItems.deleteListOfItemsRow(itemNumber);
         //finish();
+        // ourTargetRowID = rowId;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setTitle("Delete Item");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Are you sure you want to delete this item?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfItems"," :: delete = yes");
+                        // if this button is clicked
+                        // we have a confirmation so delete record
+                        mDbHelperItems.deleteListOfItemsRow(itemNumber);
+                        //view.finish();
+                        finish();
+                        dialog.cancel();
+
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfItems"," :: delete = no");
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+        //return true; /// maybe change this later
     }
 
     /**
