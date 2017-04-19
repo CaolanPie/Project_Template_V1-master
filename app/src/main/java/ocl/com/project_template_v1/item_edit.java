@@ -193,8 +193,11 @@ public class item_edit extends AppCompatActivity {
         TextView warrantyDTextView = (TextView)findViewById(R.id.warranty_date);
         myEnteredWarrantyDate = warrantyDTextView.getText().toString();
 
+        //mDbHelperItems.updateListOfItemsRow(the_key, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
+                //myEnteredDate, myEnteredWarranty, myEnteredWarrantyDate); //Last three are wrong
+
         mDbHelperItems.updateListOfItemsRow(the_key, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
-                myEnteredDate, myEnteredWarranty, myEnteredWarrantyDate); //Last three are wrong
+                1, myEnteredWarranty, 1);
         finish();
     }
 

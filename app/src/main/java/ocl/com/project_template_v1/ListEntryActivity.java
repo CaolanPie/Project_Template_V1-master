@@ -72,9 +72,8 @@ public class ListEntryActivity extends AppCompatActivity {
                         //		inserts the new row in our database
                         mDbHelperLists.createListOfListsRow(
                                 mNameBox.getText().toString(),
-                                mDescriptionBox.getText().toString(),
-                                "second string",
-                                "third string");
+                                mDescriptionBox.getText().toString()
+                        );
                         //Fix these later ^
                         Toast.makeText(ListEntryActivity.this,
                                 "Details saved.",

@@ -7,10 +7,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AlertDialog;
 import android.util.EventLogTags;
 import android.util.Log;
 import android.view.View;
+
+import java.util.Date;
+import java.util.Locale;
 
 import ocl.com.project_template_v1.list_edit;
 
@@ -49,15 +53,15 @@ public class ListOfLists {
                     + KEY_ROWID + " integer primary key autoincrement, "
                     + KEY_Name + " text not null, "
                     + KEY_Description + " text not null, "
-                    + KEY_DateCreated + " integer not null, "
-                    + KEY_LastEdited + " text not null);";
+                    + KEY_DateCreated + " DATETIME, "
+                    + KEY_LastEdited + " DATETIME DEFAULT CURRENT_TIMESTAMP);";
 
     // above SQL statement translates to
-    // create table ListOfLists ( _id integer primary key autoincrement,
-    // 							Name text not null,
-    //                          Description text not null,
-    //                          DateCreated text not null,
-    //							LastEdited text not null);
+                                     // create table ListOfLists ( _id integer primary key autoincrement,
+                                     // 							Name text not null,
+                                     //                          Description text not null,
+                                     //                          DateCreated text not null,
+                                     //							LastEdited text not null);
 	/*
 	The table would look like this (column names on top)
 	   _id	Name		Description DateCreated	LastEdited
@@ -68,8 +72,14 @@ public class ListOfLists {
 
 	 */
 
-    private final Context mCtx;
+                                     private final Context mCtx;
 
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -84,7 +94,7 @@ public class ListOfLists {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion,
-                              int newVersion) {
+        int newVersion) {
             // Not used, but you could upgrade the database with ALTER
             // Scripts
         }
@@ -135,22 +145,20 @@ public class ListOfLists {
      *
      * @param name = name
      * @param Description = a brief description of the lists contents
-     * @param DateCreated = date when the list was created
-     * @param LastEdited = date of when the user last edited this list
      *
      * @return rowId (if successful) or -1 if failed
      */
     public long createListOfListsRow(String name,
-                                     String Description,
-                                     int DateCreated,
-                                String LastEdited) {
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_Name, name);
-        initialValues.put(KEY_Description, Description);
-        initialValues.put(KEY_DateCreated, DateCreated);
-        initialValues.put(KEY_LastEdited, LastEdited);
+                                     String Description) {
+                                     // int DateCreated,
+                                     // String LastEdited) {
+    ContentValues initialValues = new ContentValues();
+    initialValues.put(KEY_Name, name);
+    initialValues.put(KEY_Description, Description);
+    initialValues.put(KEY_DateCreated, getDateTime());
+    // initialValues.put(KEY_LastEdited, LastEdited);
 
-        return mDb.insert(DATABASE_TABLE, null, initialValues);
+    return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
     /**
@@ -220,21 +228,16 @@ public class ListOfLists {
      * @param rowId - the id of the row we want to update
      * @param name - name of the list
      * @param Description - a brief description of the lists contents
-     * @param LastEdited - date that the list was last edited
      *
      * @return true if update was successful
      */
     public boolean updateListOfListsRow(int rowId,
                                    String name,
-                                   String Description,
-                                   //String DateCreated,
-                                   String LastEdited) {
+                                   String Description ) {
         ContentValues args = new ContentValues();
         args.put(KEY_Name, name);
         args.put(KEY_Description, Description);
-        //args.put(KEY_DateCreated, DateCreated);
-        args.put(KEY_LastEdited, LastEdited);
-
+        
         return
                 mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }

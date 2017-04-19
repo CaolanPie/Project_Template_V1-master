@@ -135,8 +135,8 @@ public class list_edit extends AppCompatActivity {
         TextView descTextView = (TextView)findViewById(R.id.description_text);
         myEnteredDesc = descTextView.getText().toString();
 
-        mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc,
-                "Edited"); //Last one is wrong
+        mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc
+                ); //Last one is wrong
         finish();
     }
 

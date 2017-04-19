@@ -82,9 +82,11 @@ public class ItemEntryActivity extends AppCompatActivity {
                                 1, //Item number
                                 mNameBox.getText().toString(),
                                 mSerialBox.getText().toString(),
-                                mDateBox.getText().toString(),
+                                // mDateBox.getText().toString(), // Date Purchased
+                                1,  // temp date purchased
                                 mWarrantyBox.getText().toString(),
-                                mWarrantyDateBox.getText().toString());
+                                1); // temp warranty date
+                               // mWarrantyDateBox.getText().toString()); // Warranty DAte
                         //Fix these later ^
                         Toast.makeText(ItemEntryActivity.this,
                                 "Details saved.",
