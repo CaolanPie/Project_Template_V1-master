@@ -1,11 +1,15 @@
 package ocl.com.project_template_v1.DBfunctions;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.view.View;
 
 import static java.lang.String.valueOf;
 
@@ -32,6 +36,7 @@ public class ListOfItems {
 
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
+    private int ourTargetRowID;
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE + " ("
@@ -156,9 +161,46 @@ public class ListOfItems {
      *
      * @return rowId
      */
-    public boolean deleteListOfItemsRow(int rowId) {
-        return
-                mDb.delete(DATABASE_TABLE, the_Key + "=" + rowId, null) > 0;
+    public boolean deleteListOfItemsRow(int rowId, View view) {
+         ourTargetRowID = rowId;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+
+        // set title
+        alertDialogBuilder.setTitle("Delete Item");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Are you sure you want to delete this item?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfItems"," :: delete = yes");
+                        // if this button is clicked
+                        // we have a confirmation so delete record
+                        mDb.delete(DATABASE_TABLE, the_Key + "=" + ourTargetRowID, null);
+                        //view.finish();
+                        dialog.cancel();
+
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Log.i(">> ListOfItems"," :: delete = no");
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+        return true; /// maybe change this later
+
     }
 
     /**

@@ -165,11 +165,11 @@ public class ListOfLists {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
 
         // set title
-        alertDialogBuilder.setTitle("Delete");
+        alertDialogBuilder.setTitle("Delete List");
 
         // set dialog message
         alertDialogBuilder
-                .setMessage("Are you sure you want to Delete this list?")
+                .setMessage("Are you sure you want to delete this list?")
                 .setCancelable(false)
                 .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {

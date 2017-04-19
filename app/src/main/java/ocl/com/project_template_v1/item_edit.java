@@ -110,8 +110,8 @@ public class item_edit extends AppCompatActivity {
      */
     public void deleteRow(View view) {
         Log.i(">> item_edit"," :: deleteRow");
-        mDbHelperItems.deleteListOfItemsRow(itemNumber);
-        finish();
+        mDbHelperItems.deleteListOfItemsRow(itemNumber, view);
+        //finish();
     }
 
     /**
