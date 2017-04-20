@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.id.menu_Demo:
             {
                 Log.i(">> onOptnsSelect"," :: menu_Demo");
-                //ShowOptionsUI();
+                createDemoData();
                 return true;
             }
             default:
@@ -302,80 +302,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 spinnerArray.add("No Lists Currently");
             }
         }
-
-        /*
-        if (ListsCursor.getCount() >= 1) {
-            String[] from = new String[]{ListOfLists.KEY_Name};
-
-            int[] to = new int[]{R.id.mytext};
-
-            SimpleCursorAdapter ListOfLists =
-                    new SimpleCursorAdapter(this, R.layout.list_single_row,
-                            ListsCursor, from, to);
-            MyListsView.setAdapter(ListOfLists);
-        }
-        */
-
-
     }
 
     /**
-        This routine gets all the lists for the ListOfLists page,
-        reading it from the database table called "ListOfLists"
+     * this routine will create sample data when the menuOption demoData is chosen
      */
-
-    /*
-    private void GetAllLists() {
-        Log.i(">> MainActivity"," :: GetAllLists");
-
-        Cursor ListsCursor = mDbHelperLists.fetchAllListOfLists();
-        startManagingCursor(ListsCursor);
-        // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
-        Log.i("Number of Records"," :: "+ListsCursor.getCount());
-
-
-        if (ListsCursor.getCount() >= 1) {
-            String[] from = new String[]{ListOfLists.KEY_Name};
-
-            int[] to = new int[]{R.id.mytext};
-
-            SimpleCursorAdapter ListOfLists =
-                    new SimpleCursorAdapter(this, R.layout.list_single_row,
-                            ListsCursor, from, to);
-            MyListsView.setAdapter(ListOfLists);
-        }
-
-
+    private void createDemoData() {
+        Log.i(">> Main Activity"," :: createDemoData");
     }
-*/
-
-    /**
-     This routine gets all the items for the ListOfItems page,
-     reading it from the database table called "ListOfItems"
-     */
-    /*
-    private void GetAllItems() {
-        Log.i(">> MainActivity"," :: GetAllItems");
-
-        Cursor ItemsCursor = mDbHelperItems.fetchAllListOfItems();
-        startManagingCursor(ItemsCursor);
-        // Cursor c = mDbHelper.rawQuery("select * from your_table_name",null);
-        Log.i("Number of Records"," :: "+ItemsCursor.getCount());
-
-        if (ItemsCursor.getCount() >= 1) {
-            String[] from = new String[]{ListOfItems.item_Name};
-
-            int[] to = new int[]{R.id.mytext2};
-
-            SimpleCursorAdapter ListOfItems =
-                    new SimpleCursorAdapter(this, R.layout.item_single_row,
-                            ItemsCursor, from, to);
-            MyItemsView.setAdapter(ListOfItems);
-        }
-
-
-    }
-    */
 
 } // End of Class
 

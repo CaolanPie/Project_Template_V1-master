@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ public class ItemEntryActivity extends AppCompatActivity {
     private EditText mNameBox;
     private EditText mSerialBox;
     private EditText mDateBox;
-    private EditText mWarrantyBox;
+    private CheckBox mWarrantyBox;
     private EditText mWarrantyDateBox;
     private String targetListname;
     private int myListNumber;
@@ -51,7 +52,7 @@ public class ItemEntryActivity extends AppCompatActivity {
         mNameBox = (EditText) findViewById (R.id.item_name);
         mSerialBox = (EditText) findViewById (R.id.serial_number);
         mDateBox = (EditText) findViewById (R.id.date_purchased);
-        //mWarrantyBox = (EditText) findViewById (R.id.warrenty_checkbox);
+        mWarrantyBox = (CheckBox) findViewById (R.id.warrenty_checkbox);
         mWarrantyDateBox = (EditText) findViewById (R.id.warranty_date);
 
         //this detects when the button itself is pressed
