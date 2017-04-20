@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -209,6 +210,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    /**
+     * Currently not using this
+     * @param featureId
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        Log.i(">> MainActivity"," :: onMenuOpened");
+        return false;
+    }
+
+    /**
+     * Deals with options chosen on the menu
+     * @param item - the menu item you chose
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        Log.i(">> MainActivity"," :: onOptionsItemSelected");
+        // Handle item selection
+        switch (item.getItemId())
+        {
+            case R.id.menu_settings:
+            {
+                Log.i(">> onOptnsSelect"," :: menu_settings");
+                //ShowLoginUI();
+                return true;
+            }
+            case R.id.menu_about:
+            {
+                Log.i(">> onOptnsSelect"," :: menu_about");
+                //ShowGoodbyeUI();
+                return true;
+            }
+            case R.id.menu_Demo:
+            {
+                Log.i(">> onOptnsSelect"," :: menu_Demo");
+                //ShowOptionsUI();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
