@@ -72,7 +72,9 @@ public class ListEntryActivity extends AppCompatActivity {
                         //		inserts the new row in our database
                         mDbHelperLists.createListOfListsRow(
                                 mNameBox.getText().toString(),
-                                mDescriptionBox.getText().toString()
+                                mDescriptionBox.getText().toString(),
+                                null,
+                                null
                         );
                         //Fix these later ^
                         Toast.makeText(ListEntryActivity.this,

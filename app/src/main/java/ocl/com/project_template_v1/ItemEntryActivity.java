@@ -51,7 +51,7 @@ public class ItemEntryActivity extends AppCompatActivity {
         mNameBox = (EditText) findViewById (R.id.item_name);
         mSerialBox = (EditText) findViewById (R.id.serial_number);
         mDateBox = (EditText) findViewById (R.id.date_purchased);
-        mWarrantyBox = (EditText) findViewById (R.id.warrenty_checkbox);
+        //mWarrantyBox = (EditText) findViewById (R.id.warrenty_checkbox);
         mWarrantyDateBox = (EditText) findViewById (R.id.warranty_date);
 
         //this detects when the button itself is pressed
@@ -84,9 +84,9 @@ public class ItemEntryActivity extends AppCompatActivity {
                                 mNameBox.getText().toString(),
                                 mSerialBox.getText().toString(),
                                 // mDateBox.getText().toString(), // Date Purchased
-                                1,  // temp date purchased
+                                null,  // temp date purchased
                                 mWarrantyBox.getText().toString(),
-                                1); // temp warranty date
+                                null); // temp warranty date
                                // mWarrantyDateBox.getText().toString()); // Warranty DAte
                         //Fix these later ^
                         Toast.makeText(ItemEntryActivity.this,

@@ -8,8 +8,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.SimpleDateFormat;
 import android.util.Log;
 import android.view.View;
+
+import java.util.Date;
+import java.util.Locale;
 
 import static java.lang.String.valueOf;
 
@@ -65,6 +69,13 @@ public class ListOfItems {
 
 	 */
     private final Context mCtx;
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
@@ -139,17 +150,29 @@ public class ListOfItems {
                                      int ItemNumber,
                                      String ItemName,
                                      String SerialNumber,
-                                     int DatePurchased,
+                                     String DatePurchased,
                                      String Warranty,
-                                     int WarrantyExpiration) {
+                                     String WarrantyExpiration) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ROWID, ListNo);
         initialValues.put(item_Number, ItemNumber);
         initialValues.put(item_Name, ItemName);
         initialValues.put(item_serial, SerialNumber);
-        initialValues.put(date_purchased, DatePurchased);
+        //initialValues.put(date_purchased, DatePurchased);
+        if( DatePurchased == null)
+        {
+            initialValues.put(date_purchased, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
         initialValues.put(warranty, Warranty);
-        initialValues.put(warranty_date, WarrantyExpiration);
+        //initialValues.put(warranty_date, WarrantyExpiration);
+        if( WarrantyExpiration == null)
+        {
+            initialValues.put(warranty_date, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
 
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -225,17 +248,30 @@ public class ListOfItems {
                                         int ItemNumber,
                                         String ItemName,
                                         String SerialNumber,
-                                        int DatePurchased,
+                                        String DatePurchased,
                                         String Warranty,
-                                        int WarrantyExpiration) {
+                                        String WarrantyExpiration) {
         ContentValues args = new ContentValues();
         args.put(KEY_ROWID, ListNo);
         args.put(item_Number, ListNo);
         args.put(item_Name, ItemName);
         args.put(item_serial, SerialNumber);
-        args.put(date_purchased, DatePurchased);
+        //args.put(date_purchased, DatePurchased);
+        //args.put(warranty, Warranty);
+        //args.put(warranty_date, WarrantyExpiration);
+        if( DatePurchased == null)
+        {
+            args.put(date_purchased, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
         args.put(warranty, Warranty);
-        args.put(warranty_date, WarrantyExpiration);
+        if( WarrantyExpiration == null)
+        {
+            args.put(warranty_date, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
 
         return
                 mDb.update(DATABASE_TABLE, args, the_Key + "=" + rowId, null) > 0;

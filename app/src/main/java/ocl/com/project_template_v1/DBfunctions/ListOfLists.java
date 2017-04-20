@@ -145,18 +145,32 @@ public class ListOfLists {
      *
      * @param name = name
      * @param Description = a brief description of the lists contents
+     * @param DateCreated = null or datecreated
+     * @param LastEdited = null or lastedited
      *
      * @return rowId (if successful) or -1 if failed
      */
     public long createListOfListsRow(String name,
-                                     String Description) {
-                                     // int DateCreated,
-                                     // String LastEdited) {
+                                     String Description,
+                                     String DateCreated,
+                                     String LastEdited) {
     ContentValues initialValues = new ContentValues();
     initialValues.put(KEY_Name, name);
     initialValues.put(KEY_Description, Description);
-    initialValues.put(KEY_DateCreated, getDateTime());
+    //initialValues.put(KEY_DateCreated, getDateTime());
     // initialValues.put(KEY_LastEdited, LastEdited);
+        if( DateCreated == null)
+        {
+            initialValues.put(KEY_DateCreated, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
+        if( LastEdited == null)
+        {
+            initialValues.put(KEY_LastEdited, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
 
     return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -228,17 +242,32 @@ public class ListOfLists {
      * @param rowId - the id of the row we want to update
      * @param name - name of the list
      * @param Description - a brief description of the lists contents
+     * @param dateCreated - null or datecreated
+     * @param lastEdited - null or lastedited
      *
      * @return true if update was successful
      */
     public boolean updateListOfListsRow(int rowId,
                                    String name,
-                                   String Description ) {
+                                   String Description,
+                                        String dateCreated,
+                                        String lastEdited) {
         ContentValues args = new ContentValues();
         args.put(KEY_Name, name);
         args.put(KEY_Description, Description);
-        args.put(KEY_LastEdited, getDateTime());
-        
+        if( dateCreated == null)
+        {
+            args.put(KEY_DateCreated, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
+        if( lastEdited == null)
+        {
+            args.put(KEY_LastEdited, getDateTime());
+        } else {
+            // use our passed date - to be fixed later
+        }
+
         return
                 mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }

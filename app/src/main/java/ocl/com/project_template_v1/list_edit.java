@@ -151,6 +151,8 @@ public class list_edit extends AppCompatActivity {
     public void updateRow(View view) {
         String myEnteredName;
         String myEnteredDesc;
+        String myEnteredDate;
+        String myEnteredLastEdited;
 
         Log.i(">> list_edit"," :: updateRow");
         TextView nameTextView = (TextView)findViewById(R.id.nameofList);
@@ -159,7 +161,13 @@ public class list_edit extends AppCompatActivity {
         TextView descTextView = (TextView)findViewById(R.id.description_text);
         myEnteredDesc = descTextView.getText().toString();
 
-        mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc
+        TextView dateTextView = (TextView)findViewById(R.id.date_created);
+        myEnteredDate = dateTextView.getText().toString();
+
+        TextView lastEdTextView = (TextView)findViewById(R.id.Last_edited);
+        myEnteredLastEdited = lastEdTextView.getText().toString();
+
+        mDbHelperLists.updateListOfListsRow(listNumber, myEnteredName, myEnteredDesc, null, null
                 ); //Last one is wrong
         finish();
     }
