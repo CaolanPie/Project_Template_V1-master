@@ -163,13 +163,13 @@ public class ListOfLists {
         {
             initialValues.put(KEY_DateCreated, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            initialValues.put(KEY_DateCreated, DateCreated);
         }
         if( LastEdited == null)
         {
             initialValues.put(KEY_LastEdited, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            initialValues.put(KEY_LastEdited, LastEdited);
         }
 
     return mDb.insert(DATABASE_TABLE, null, initialValues);

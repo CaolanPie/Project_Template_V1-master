@@ -34,7 +34,7 @@ import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private ListOfLists mDbHelperLists;
-    //private ListOfItems mDbHelperItems;
+    private ListOfItems mDbHelperItems;
     //private ListView MyItemsView;
     //private ListView MyListsView;
     private String currentList;
@@ -308,9 +308,46 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * this routine will create sample data when the menuOption demoData is chosen
      */
     private void createDemoData() {
-        Log.i(">> Main Activity"," :: createDemoData");
-    }
 
+        Log.i(">> Main Activity"," :: createDemoData");
+        // List table
+        mDbHelperLists = new ListOfLists(this);
+        mDbHelperLists.open();
+        // Items Table
+        mDbHelperItems = new ListOfItems(this);
+        mDbHelperItems.open();
+        long rowID;
+
+        // Create List and then items withing that List
+        rowID = mDbHelperLists.createListOfListsRow("Living Room 1", "Items in Living Room at Front", "2015-01-01","2017-01-31");
+        // template for items(int)rowID, 1, Description, Serial Number, Date Purchaed, Warranty Tick,Warranty Expiry Date
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Samsung TV", "SR-127-3736-12", "2015-01-01", "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Denon AV2301", "DE-551-37", "2015-01-01", "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Mini Fridge", "FR-123-98", "2015-01-01", "X","2023-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "AV Speakers", "AV-837367-7", "2015-01-01", "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 5, "Hub", "HUB-01-04", "2015-01-01", "X","2025-12-31");
+
+        rowID = mDbHelperLists.createListOfListsRow("Living Room 2", "Small Living Room at Front", "2015-01-02","2016-01-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Hitachi TV", "HI-127-3736-12", "2012-01-01", "X","2015-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Sony DVD Player", "SO-551-37", "2016-01-01", "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Sound Bar", "Sound-123-98", "2014-01-01", "X","2023-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Disco Ball", "Disc-837367-7", "2011-01-01", "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 5, "Mini Fridge", "FRIG-01-04", "2009-01-01", "X","2025-12-31");
+
+        rowID = mDbHelperLists.createListOfListsRow("Bathroom", "Downstairs Bathroom", "2015-01-02","2016-07-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Japaneese Toilet", "JT-P00-1", "2026-06-01", "X","2018-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Hair Dryer", "Hair-01-04", "2009-01-01", "X","");
+
+        rowID = mDbHelperLists.createListOfListsRow("Bathroom Family", "Main bathroom", "2015-01-02","2016-09-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Hot Tub", "HT-P00-1", "2026-06-01", "X","2018-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Steam Cubical", "ST-01-04", "2009-01-01", "X","");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Hair Curlers", "HC-P00-1", "2026-02-01", "X","2018-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Philips Shaver", "PS-01-04", "2009-01-01", "X","2014-06-31");
+
+        // finished with out lists so closing DBs - we should really close these, but I had probelms
+        //mDbHelperLists.close();
+        //mDbHelperItems.close();
+    }
 } // End of Class
 
 

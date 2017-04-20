@@ -34,6 +34,7 @@ public class ListOfItems {
     public static final String item_Name = "ItemName";
     public static final String item_serial = "SerialNumber";
     public static final String date_purchased = "DatePurchased";
+    public static final String purchase_price = "PurchasePrice";
     public static final String warranty = "Warranty";
     public static final String warranty_date = "WarrantyExpiration";
 
@@ -50,8 +51,9 @@ public class ListOfItems {
                     + item_Name + " text not null, "
                     + item_serial + " text not null, "
                     + date_purchased + " integer not null, "
-                    + warranty + " text not null, "
-                    + warranty_date + " integer not null"
+                    + purchase_price + " float, "
+                    + warranty + " text, "
+                    + warranty_date + " integer"
                     + ")";
 
     // above SQL statment translates to
@@ -163,7 +165,7 @@ public class ListOfItems {
         {
             initialValues.put(date_purchased, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            initialValues.put(date_purchased, DatePurchased);
         }
         initialValues.put(warranty, Warranty);
         //initialValues.put(warranty_date, WarrantyExpiration);
@@ -171,7 +173,7 @@ public class ListOfItems {
         {
             initialValues.put(warranty_date, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            initialValues.put(warranty_date, WarrantyExpiration);
         }
 
         return mDb.insert(DATABASE_TABLE, null, initialValues);

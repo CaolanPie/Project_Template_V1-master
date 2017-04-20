@@ -27,6 +27,13 @@ class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetL
         myCalendar = Calendar.getInstance();
     }
 
+    /**
+     * This is triggered on the date being set
+     * @param view
+     * @param year
+     * @param monthOfYear
+     * @param dayOfMonth
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 // this.editText.setText();
@@ -41,6 +48,11 @@ class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetL
 
     }
 
+    /**
+     * This is triggered on the change of focus
+     * @param v
+     * @param hasFocus
+     */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
 // TODO Auto-generated method stub
