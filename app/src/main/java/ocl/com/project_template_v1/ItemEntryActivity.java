@@ -3,6 +3,7 @@ package ocl.com.project_template_v1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -50,7 +51,7 @@ public class ItemEntryActivity extends AppCompatActivity {
         mNameBox = (EditText) findViewById (R.id.item_name);
         mSerialBox = (EditText) findViewById (R.id.serial_number);
         mDateBox = (EditText) findViewById (R.id.date_purchased);
-        mWarrantyBox = (EditText) findViewById (R.id.warranty);
+        mWarrantyBox = (EditText) findViewById (R.id.warrenty_checkbox);
         mWarrantyDateBox = (EditText) findViewById (R.id.warranty_date);
 
         //this detects when the button itself is pressed
@@ -106,6 +107,12 @@ public class ItemEntryActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void scanPage(View view) {
+        Log.i(">> ItemEntryActivity"," :: scanPage");
+        Intent intent = new Intent(this, BarcodeCaptureActivity.class);
+        startActivity(intent);
     }
 
     public void backPage(View view) {

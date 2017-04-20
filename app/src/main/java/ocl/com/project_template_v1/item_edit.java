@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.sql.RowId;
+import java.util.Locale;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
@@ -86,7 +88,7 @@ public class item_edit extends AppCompatActivity {
 
         //Get item warranty Y/N
         String warranty = ItemsCursor.getString(ItemsCursor.getColumnIndex("Warranty"));
-        TextView warrantyTextView = (TextView)findViewById(R.id.warranty);
+        TextView warrantyTextView = (TextView)findViewById(R.id.warrenty_checkbox);
         warrantyTextView.setText(warranty);
 
         //Get the date of warranty expiration
@@ -96,6 +98,18 @@ public class item_edit extends AppCompatActivity {
 
         // int myItemNo = ItemsCursor.getInt(ItemsCursor.getColumnIndex("_id"));
 
+    }
+
+    private String convertDateFromSQLLite( String dateToConvert) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(dateToConvert);
+    }
+
+    public void scanPage(View view) {
+        Log.i(">> item_edit"," :: scanPage");
+        Intent intent = new Intent(this, BarcodeCaptureActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -187,7 +201,7 @@ public class item_edit extends AppCompatActivity {
         TextView dateTextView = (TextView)findViewById(R.id.date_purchased);
         myEnteredDate = dateTextView.getText().toString();
 
-        TextView warrantyTextView = (TextView)findViewById(R.id.warranty);
+        TextView warrantyTextView = (TextView)findViewById(R.id.warrenty_checkbox);
         myEnteredWarranty = warrantyTextView.getText().toString();
 
         TextView warrantyDTextView = (TextView)findViewById(R.id.warranty_date);
