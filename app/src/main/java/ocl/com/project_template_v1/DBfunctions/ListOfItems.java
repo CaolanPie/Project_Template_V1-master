@@ -35,6 +35,7 @@ public class ListOfItems {
     public static final String item_serial = "SerialNumber";
     public static final String date_purchased = "DatePurchased";
     public static final String purchase_price = "PurchasePrice";
+    public static final String portable_item = "PortableItem";
     public static final String warranty = "Warranty";
     public static final String warranty_date = "WarrantyExpiration";
 
@@ -52,6 +53,7 @@ public class ListOfItems {
                     + item_serial + " text not null, "
                     + date_purchased + " integer not null, "
                     + purchase_price + " float, "
+                    + portable_item + " CHARACTER(1), "
                     + warranty + " text, "
                     + warranty_date + " integer"
                     + ")";
@@ -153,6 +155,8 @@ public class ListOfItems {
                                      String ItemName,
                                      String SerialNumber,
                                      String DatePurchased,
+                                     float PurchasePrice,
+                                     char PortableItem,
                                      String Warranty,
                                      String WarrantyExpiration) {
         ContentValues initialValues = new ContentValues();
@@ -167,6 +171,8 @@ public class ListOfItems {
         } else {
             initialValues.put(date_purchased, DatePurchased);
         }
+        initialValues.put(purchase_price, PurchasePrice);
+        //initialValues.put(portable_item, PortableItem);
         initialValues.put(warranty, Warranty);
         //initialValues.put(warranty_date, WarrantyExpiration);
         if( WarrantyExpiration == null)
@@ -251,6 +257,8 @@ public class ListOfItems {
                                         String ItemName,
                                         String SerialNumber,
                                         String DatePurchased,
+                                        float PurchasePrice,
+                                        char PortableItem,
                                         String Warranty,
                                         String WarrantyExpiration) {
         ContentValues args = new ContentValues();
@@ -267,6 +275,8 @@ public class ListOfItems {
         } else {
             // use our passed date - to be fixed later
         }
+        args.put(purchase_price, PurchasePrice);
+        //args.put(portable_item, PortableItem);
         args.put(warranty, Warranty);
         if( WarrantyExpiration == null)
         {

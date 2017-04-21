@@ -320,29 +320,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // Create List and then items withing that List
         rowID = mDbHelperLists.createListOfListsRow("Living Room 1", "Items in Living Room at Front", "2015-01-01","2017-01-31");
-        // template for items(int)rowID, 1, Description, Serial Number, Date Purchaed, Warranty Tick,Warranty Expiry Date
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Samsung TV", "SR-127-3736-12", "2015-01-01", "X","2016-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Denon AV2301", "DE-551-37", "2015-01-01", "X","2017-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Mini Fridge", "FR-123-98", "2015-01-01", "X","2023-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "AV Speakers", "AV-837367-7", "2015-01-01", "X","2017-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 5, "Hub", "HUB-01-04", "2015-01-01", "X","2025-12-31");
+        // template for items(int)rowID, 1, Description, Serial Number, Date Purchaed, Purchase Price, Warranty Tick,Warranty Expiry Date
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Samsung TV", "SR-127-3736-12", "2015-01-01", 500, ' ', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Denon AV2301", "DE-551-37", "2015-01-01", 300, ' ', "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Mini Fridge", "FR-123-98", "2015-01-01", 80, 'X', "X","2023-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "AV Speakers", "AV-837367-7", "2015-01-01", 120, ' ', "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 5, "Hub", "HUB-01-04", "2015-01-01", 40, ' ', "X","2025-12-31");
 
         rowID = mDbHelperLists.createListOfListsRow("Living Room 2", "Small Living Room at Front", "2015-01-02","2016-01-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Hitachi TV", "HI-127-3736-12", "2012-01-01", "X","2015-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Sony DVD Player", "SO-551-37", "2016-01-01", "X","2017-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Sound Bar", "Sound-123-98", "2014-01-01", "X","2023-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Disco Ball", "Disc-837367-7", "2011-01-01", "X","2017-12-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 5, "Mini Fridge", "FRIG-01-04", "2009-01-01", "X","2025-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Hitachi TV", "HI-127-3736-12", "2012-01-01", 450, ' ', "X","2015-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Sony DVD Player", "SO-551-37", "2016-01-01", 200, ' ', "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Sound Bar", "Sound-123-98", "2014-01-01", 70, ' ', "X","2023-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Disco Ball", "Disc-837367-7", "2011-01-01", 20, 'X', "X","2017-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 5, "Mini Fridge", "FRIG-01-04", "2009-01-01", 40, 'X', "X","2025-12-31");
 
         rowID = mDbHelperLists.createListOfListsRow("Bathroom", "Downstairs Bathroom", "2015-01-02","2016-07-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Japaneese Toilet", "JT-P00-1", "2026-06-01", "X","2018-06-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Hair Dryer", "Hair-01-04", "2009-01-01", "X","");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Japaneese Toilet", "JT-P00-1", "2026-06-01", 3000, ' ', "X","2018-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Hair Dryer", "Hair-01-04", "2009-01-01", 40, 'X', "X","");
 
         rowID = mDbHelperLists.createListOfListsRow("Bathroom Family", "Main bathroom", "2015-01-02","2016-09-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Hot Tub", "HT-P00-1", "2026-06-01", "X","2018-06-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Steam Cubical", "ST-01-04", "2009-01-01", "X","");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Hair Curlers", "HC-P00-1", "2026-02-01", "X","2018-06-31");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Philips Shaver", "PS-01-04", "2009-01-01", "X","2014-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Hot Tub", "HT-P00-1", "2026-06-01", 600, ' ', "X","2018-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 2, "Steam Cubical", "ST-01-04", "2009-01-01", 350, ' ', "X","");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 3, "Hair Curlers", "HC-P00-1", "2026-02-01", 65, 'X', "X","2018-06-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Philips Shaver", "PS-01-04", "2009-01-01", 60, 'X', "X","2014-06-31");
+
+        rowID = mDbHelperLists.createListOfListsRow("Garage", "Double Garage", "2015-01-02","2016-09-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Mercedes", "BM-784-3736-12", "2015-01-01", 15000, 'X', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Petrol Powered Lawnmower", "SR-127-3736-12", "2015-01-01", 300, 'X', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Yamaha Motorbike", "SR-127-3736-12", "2015-01-01", 3000, 'X', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Icebox Freezer", "SR-127-3736-12", "2015-01-01", 500, ' ', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Ford Focus", "SR-127-3736-12", "2015-01-01", 8000, 'X', "X","2016-12-31");
+
+        rowID = mDbHelperLists.createListOfListsRow("Attick", "Roof Storage", "2015-01-02","2016-09-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Heirlooms", "SR-127-3736-12", "2015-01-01", 200, 'X', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Replacement Electrics", "SR-127-3736-12", "2015-01-01", 750, ' ', "X","2016-12-31");
+
+
+        rowID = mDbHelperLists.createListOfListsRow("Bedroom", "Master Bedroom", "2015-01-02","2016-09-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Rolex Watch", "SR-127-3736-12", "2015-01-01", 3000, 'X', "X","2012-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "LG TV", "SR-127-3736-12", "2015-01-01", 895, ' ', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "MiniVault Safe", "SR-127-3736-12", "2015-01-01", 359, ' ', "X","2016-12-31");
+
+
+        rowID = mDbHelperLists.createListOfListsRow("Kitchen", "Communal Eating Space", "2015-01-02","2016-09-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Merrychef Eikon Oven", "SR-127-3736-12", "2015-01-01", 6700, ' ', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Damascus Knives", "SR-127-3736-12", "2015-01-01", 629, 'X', "X","2016-12-31");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Fracino Contempo Coffee Maker", "SR-127-3736-12", "2015-01-01", 2100, ' ', "X","2016-12-31");
+
 
         // finished with out lists so closing DBs - we should really close these, but I had probelms
         //mDbHelperLists.close();
