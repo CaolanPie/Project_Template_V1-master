@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 populateSpinnerLists(spinnerArray);
                 //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
                 spinnerAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), "You Have Inserted Demo Data" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Demo Data Created" , Toast.LENGTH_LONG).show();
                 return true;
             }
             default:
