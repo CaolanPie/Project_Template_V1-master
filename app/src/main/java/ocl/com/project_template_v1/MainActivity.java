@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
         //spinner.setOnItemSelectedListener(this);
-        Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "You chose " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
 
         currentList = parent.getItemAtPosition(pos).toString();
     }
@@ -239,19 +239,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.id.menu_settings:
             {
                 Log.i(">> onOptnsSelect"," :: menu_settings");
-                //ShowLoginUI();
                 return true;
             }
             case R.id.menu_about:
             {
                 Log.i(">> onOptnsSelect"," :: menu_about");
-                //ShowGoodbyeUI();
                 return true;
             }
             case R.id.menu_Demo:
             {
                 Log.i(">> onOptnsSelect"," :: menu_Demo");
                 createDemoData();
+                // This next code refreshes the spinner list
+                spinnerArray.clear();
+                populateSpinnerLists(spinnerArray);
+                //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
+                spinnerAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "You Have Inserted Demo Data" , Toast.LENGTH_LONG).show();
                 return true;
             }
             default:
@@ -355,12 +359,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Heirlooms", "SR-127-3736-12", "2015-01-01", 200, 'X', "X","2016-12-31");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Replacement Electrics", "SR-127-3736-12", "2015-01-01", 750, ' ', "X","2016-12-31");
 
-
         rowID = mDbHelperLists.createListOfListsRow("Bedroom", "Master Bedroom", "2015-01-02","2016-09-31");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Rolex Watch", "SR-127-3736-12", "2015-01-01", 3000, 'X', "X","2012-12-31");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "LG TV", "SR-127-3736-12", "2015-01-01", 895, ' ', "X","2016-12-31");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "MiniVault Safe", "SR-127-3736-12", "2015-01-01", 359, ' ', "X","2016-12-31");
-
 
         rowID = mDbHelperLists.createListOfListsRow("Kitchen", "Communal Eating Space", "2015-01-02","2016-09-31");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Merrychef Eikon Oven", "SR-127-3736-12", "2015-01-01", 6700, ' ', "X","2016-12-31");

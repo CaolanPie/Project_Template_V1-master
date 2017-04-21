@@ -86,6 +86,8 @@ public class ItemEntryActivity extends AppCompatActivity {
                                 mSerialBox.getText().toString(),
                                 // mDateBox.getText().toString(), // Date Purchased
                                 null,  // temp date purchased
+                                0, // Purchase Price -- fix this hard coding
+                                ' ', // PortableItem (blank is No anything else is Yes)
                                 mWarrantyBox.getText().toString(),
                                 null); // temp warranty date
                                // mWarrantyDateBox.getText().toString()); // Warranty DAte

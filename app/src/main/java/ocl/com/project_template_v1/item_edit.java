@@ -211,7 +211,11 @@ public class item_edit extends AppCompatActivity {
                 //myEnteredDate, myEnteredWarranty, myEnteredWarrantyDate); //Last three are wrong
 
         mDbHelperItems.updateListOfItemsRow(the_key, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
-                null, myEnteredWarranty, null);
+                null,  // DatePurchased
+                0, // Purchase Price
+                ' ', // Portable (Blank = No, Anythng else = Yes)
+                myEnteredWarranty,
+                null);  // Warranty Expiration Date
         finish();
     }
 
