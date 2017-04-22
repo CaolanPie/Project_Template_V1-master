@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,13 +67,13 @@ public class list_edit extends AppCompatActivity {
         descTextView.setText(ListDescription);
 
         String dateCreated = ListsCursor.getString(ListsCursor.getColumnIndex("DateCreated"));
-        TextView dateTextView = (TextView)findViewById(R.id.date_created);
-        //dateTextView.setText( convertDateFromSQLLite(dateCreated) );
+        EditText dateTextView = (EditText)findViewById(R.id.date_created);
+        //setDate fromDate = new setDate(dateTextView, this);
         dateTextView.setText( dateCreated );
 
         String lastEdited = ListsCursor.getString(ListsCursor.getColumnIndex("LastEdited"));
-        TextView lastEdTextView = (TextView)findViewById(R.id.Last_edited);
-        //lastEdTextView.setText( convertDateFromSQLLite(listDescription));
+        EditText lastEdTextView = (EditText)findViewById(R.id.Last_edited);
+        //setDate fromDate2 = new setDate(lastEdTextView, this);
         lastEdTextView.setText(lastEdited);
 
         // int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));

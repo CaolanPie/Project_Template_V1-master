@@ -26,6 +26,8 @@ public class ItemEntryActivity extends AppCompatActivity {
     private EditText mNameBox;
     private EditText mSerialBox;
     private EditText mDateBox;
+    private EditText mPurchasePrice;
+    private CheckBox mPortableItem;
     private CheckBox mWarrantyBox;
     private EditText mWarrantyDateBox;
     private String targetListname;
@@ -52,8 +54,12 @@ public class ItemEntryActivity extends AppCompatActivity {
         mNameBox = (EditText) findViewById (R.id.item_name);
         mSerialBox = (EditText) findViewById (R.id.serial_number);
         mDateBox = (EditText) findViewById (R.id.date_purchased);
+        setDate fromDate = new setDate(mDateBox, this);
+        mPurchasePrice = (EditText) findViewById (R.id.purchase_price);
+        mPortableItem = (CheckBox) findViewById(R.id.portable_checkbox);
         mWarrantyBox = (CheckBox) findViewById (R.id.warrenty_checkbox);
         mWarrantyDateBox = (EditText) findViewById (R.id.warranty_date);
+        setDate fromDate2 = new setDate(mWarrantyDateBox, this);
 
         //this detects when the button itself is pressed
         // this calls a routine which will setup the detection of the buttons
@@ -70,13 +76,28 @@ public class ItemEntryActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int nPortable;
+                        int nWarranty;
                         // this is called when our button is actually pressed
+                        /*
                         Toast.makeText(ItemEntryActivity.this,
                                 "Clicked Save button Name = " + mNameBox.getText().toString() +
                                 ", Serial Number = " + mSerialBox.getText().toString() +
                                 ", Date Purchased = " + mDateBox.getText().toString() ,
                                 Toast.LENGTH_SHORT).show();
-
+                        */
+                        // find out if we indicated this item as portable
+                        // that is can be taken out of the house
+                        if(mPortableItem.isChecked()) {
+                            nPortable = 1;
+                        } else {
+                            nPortable = 0;
+                        }
+                        if(mWarrantyBox.isChecked()) {
+                            nWarranty = 1;
+                        } else {
+                            nWarranty = 0;
+                        }
                         // This line actually calls our createListOfListsRow which then
                         //		inserts the new row in our database
                         mDbHelperItems.createListOfItemsRow(
@@ -85,15 +106,15 @@ public class ItemEntryActivity extends AppCompatActivity {
                                 mNameBox.getText().toString(),
                                 mSerialBox.getText().toString(),
                                 // mDateBox.getText().toString(), // Date Purchased
-                                null,  // temp date purchased
-                                0, // Purchase Price -- fix this hard coding
-                                ' ', // PortableItem (blank is No anything else is Yes)
-                                mWarrantyBox.getText().toString(),
-                                null); // temp warranty date
+                                mDateBox.getText().toString(),  // temp date purchased
+                                Float.valueOf(mPurchasePrice.getText().toString()), // Purchase Price -- fix this hard coding
+                                nPortable, // PortableItem (blank is No, anything else is Yes)
+                                nWarranty,
+                                mWarrantyDateBox.getText().toString()); // temp warranty date
                                // mWarrantyDateBox.getText().toString()); // Warranty DAte
                         //Fix these later ^
                         Toast.makeText(ItemEntryActivity.this,
-                                "Details saved.",
+                                "Details Saved",
                                 Toast.LENGTH_SHORT).show();
                         finish(); // now exit this screen
 //						showDialog(DATE_PICKER_DIALOG);
@@ -105,7 +126,7 @@ public class ItemEntryActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ItemEntryActivity.this, "we clicked the cancel button", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemEntryActivity.this, "Edit Cancelled", Toast.LENGTH_SHORT).show();
                         finish(); // now exit this screen
                     }
                 }

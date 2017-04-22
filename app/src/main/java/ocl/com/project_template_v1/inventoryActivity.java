@@ -62,7 +62,7 @@ public class inventoryActivity extends AppCompatActivity {
                 item_edit_intent.putExtra("selectedItemNo", myListNumber);
                 startActivity(item_edit_intent);
 
-                Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "You chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
             }
         });

@@ -51,11 +51,11 @@ public class ListOfItems {
                     + item_Number + " integer not null, "
                     + item_Name + " text not null, "
                     + item_serial + " text not null, "
-                    + date_purchased + " integer not null, "
+                    + date_purchased + " text, "
                     + purchase_price + " float, "
-                    + portable_item + " CHARACTER(1), "
-                    + warranty + " text, "
-                    + warranty_date + " integer"
+                    + portable_item + " integer, "
+                    + warranty + " integer, "
+                    + warranty_date + " text"
                     + ")";
 
     // above SQL statment translates to
@@ -156,8 +156,8 @@ public class ListOfItems {
                                      String SerialNumber,
                                      String DatePurchased,
                                      float PurchasePrice,
-                                     char PortableItem,
-                                     String Warranty,
+                                     int PortableItem,
+                                     int Warranty,
                                      String WarrantyExpiration) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ROWID, ListNo);
@@ -172,7 +172,7 @@ public class ListOfItems {
             initialValues.put(date_purchased, DatePurchased);
         }
         initialValues.put(purchase_price, PurchasePrice);
-        //initialValues.put(portable_item, PortableItem);
+        initialValues.put(portable_item, PortableItem);
         initialValues.put(warranty, Warranty);
         //initialValues.put(warranty_date, WarrantyExpiration);
         if( WarrantyExpiration == null)
@@ -206,7 +206,7 @@ public class ListOfItems {
      */
     public Cursor fetchAllListOfItems() {
         return mDb.query(DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number, item_Name,
-                item_serial, date_purchased, warranty, warranty_date}, null, null, null, null, null);
+                item_serial, date_purchased, purchase_price, portable_item, warranty, warranty_date}, null, null, null, null, null);
     }
 
     /**
@@ -218,7 +218,7 @@ public class ListOfItems {
      */
     public Cursor fetchAllListOfItems(int myListNo) {
         return mDb.query(DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number, item_Name,
-                item_serial, date_purchased, warranty, warranty_date}, "ListNo = " + valueOf(myListNo), null, null, null, null);
+                item_serial, date_purchased, purchase_price, portable_item, warranty, warranty_date}, "ListNo = " + valueOf(myListNo), null, null, null, null);
     }
 
     /**
@@ -231,7 +231,7 @@ public class ListOfItems {
     public Cursor fetchListOfItemsRow(int rowId) throws SQLException {
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {the_Key, KEY_ROWID, item_Number,
-                                item_Name, item_serial, date_purchased, warranty, warranty_date}, the_Key + "=" + rowId,
+                                item_Name, item_serial, date_purchased, purchase_price, portable_item, warranty, warranty_date}, the_Key + "=" + rowId,
                         null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -258,31 +258,28 @@ public class ListOfItems {
                                         String SerialNumber,
                                         String DatePurchased,
                                         float PurchasePrice,
-                                        char PortableItem,
-                                        String Warranty,
+                                        int PortableItem,
+                                        int Warranty,
                                         String WarrantyExpiration) {
         ContentValues args = new ContentValues();
         args.put(KEY_ROWID, ListNo);
-        args.put(item_Number, ListNo);
+        args.put(item_Number, ItemNumber);
         args.put(item_Name, ItemName);
         args.put(item_serial, SerialNumber);
-        //args.put(date_purchased, DatePurchased);
-        //args.put(warranty, Warranty);
-        //args.put(warranty_date, WarrantyExpiration);
         if( DatePurchased == null)
         {
             args.put(date_purchased, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            args.put(date_purchased, DatePurchased);
         }
         args.put(purchase_price, PurchasePrice);
-        //args.put(portable_item, PortableItem);
+        args.put(portable_item, PortableItem);
         args.put(warranty, Warranty);
         if( WarrantyExpiration == null)
         {
             args.put(warranty_date, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            args.put(warranty_date, WarrantyExpiration);
         }
 
         return

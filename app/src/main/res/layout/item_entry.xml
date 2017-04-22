@@ -67,15 +67,19 @@
         android:inputType="textPersonName"
         android:hint="Date Purchased" />
 
-    <!---
     <EditText
-        android:id="@+id/warranty"
+        android:id="@+id/purchase_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Warranty Y/N" />
-        -->
+        android:hint="Price of Item" />
+
+        <CheckBox
+        android:id="@+id/portable_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Portable (Can be removed from location)" />
 
     <CheckBox
         android:id="@+id/warrenty_checkbox"

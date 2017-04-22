@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.sql.RowId;
@@ -33,9 +35,11 @@ public class item_edit extends AppCompatActivity {
     private int itemNumber;
     private int listNumber;
     private int the_key;
-    private String warranty;
+    private int warranty;
     private String warrantyDate;
     private String datePurchased;
+    private float PurchasePrice;
+    private int PortableItem;
     private int ourTargetRowID;
 
     @Override
@@ -83,17 +87,35 @@ public class item_edit extends AppCompatActivity {
 
         //Get date of purchase
         String datePurchased = ItemsCursor.getString(ItemsCursor.getColumnIndex("DatePurchased"));
-        TextView dateTextView = (TextView)findViewById(R.id.date_purchased);
+        EditText dateTextView = (EditText)findViewById(R.id.date_purchased);
+        setDate fromDate = new setDate(dateTextView, this);
         dateTextView.setText(datePurchased);
 
+        String PurchasePrice = ItemsCursor.getString(ItemsCursor.getColumnIndex("PurchasePrice"));
+        TextView purchaseTextView = (TextView)findViewById(R.id.purchase_price);
+        purchaseTextView.setText(PurchasePrice);
+
+        int PortableItem = ItemsCursor.getInt(ItemsCursor.getColumnIndex("PortableItem"));
+        CheckBox portableCheckBox = (CheckBox)findViewById(R.id.portable_checkbox);
+        if(PortableItem != 0){
+            portableCheckBox.setChecked(true);
+        } else {
+            portableCheckBox.setChecked(false);
+        }
+
         //Get item warranty Y/N
-        String warranty = ItemsCursor.getString(ItemsCursor.getColumnIndex("Warranty"));
-        TextView warrantyTextView = (TextView)findViewById(R.id.warrenty_checkbox);
-        warrantyTextView.setText(warranty);
+        int warranty = ItemsCursor.getInt(ItemsCursor.getColumnIndex("Warranty"));
+        CheckBox warrantyCheckBox = (CheckBox)findViewById(R.id.warrenty_checkbox);
+        if(warranty != 0){
+            warrantyCheckBox.setChecked(true);
+        } else {
+            warrantyCheckBox.setChecked(false);
+        }
 
         //Get the date of warranty expiration
         String warrantyDate = ItemsCursor.getString(ItemsCursor.getColumnIndex("WarrantyExpiration"));
-        TextView warrantyDTextView = (TextView)findViewById(R.id.warranty_date);
+        EditText warrantyDTextView = (EditText)findViewById(R.id.warranty_date);
+        setDate fromDate2 = new setDate(warrantyDTextView, this);
         warrantyDTextView.setText(warrantyDate);
 
         // int myItemNo = ItemsCursor.getInt(ItemsCursor.getColumnIndex("_id"));
@@ -135,7 +157,7 @@ public class item_edit extends AppCompatActivity {
         // set title
         alertDialogBuilder.setTitle("Delete Item");
 
-        // set dialog message
+        // set dialog message to make sure delete is needed
         alertDialogBuilder
                 .setMessage("Are you sure you want to delete this item?")
                 .setCancelable(false)
@@ -181,7 +203,9 @@ public class item_edit extends AppCompatActivity {
         String myEnteredName;
         String myEnteredSerial;
         String myEnteredDate;
-        String myEnteredWarranty;
+        float myEnteredPurchasePrice;
+        int myEnteredPortable;
+        int myEnteredWarranty;
         String myEnteredWarrantyDate;
 
         Log.i(">> item_edit"," :: updateRow");
@@ -201,21 +225,40 @@ public class item_edit extends AppCompatActivity {
         TextView dateTextView = (TextView)findViewById(R.id.date_purchased);
         myEnteredDate = dateTextView.getText().toString();
 
-        TextView warrantyTextView = (TextView)findViewById(R.id.warrenty_checkbox);
-        myEnteredWarranty = warrantyTextView.getText().toString();
+        TextView purchaseTextView = (TextView)findViewById(R.id.purchase_price);
+        myEnteredPurchasePrice = Float.valueOf(purchaseTextView.getText().toString());
+
+        CheckBox portableTextView = (CheckBox)findViewById(R.id.portable_checkbox);
+        // find out if we indicated this item as portable
+        // that is can be taken out of the house
+        if(portableTextView.isChecked()) {
+            myEnteredPortable = 1;
+        } else {
+            myEnteredPortable = 0;
+        }
+
+        CheckBox warrantyTextView = (CheckBox)findViewById(R.id.warrenty_checkbox);
+        // find out if we indicated this item as portable
+        // that is can be taken out of the house
+        if(warrantyTextView.isChecked()) {
+            myEnteredWarranty = 1;
+        } else {
+            myEnteredWarranty = 0;
+        }
 
         TextView warrantyDTextView = (TextView)findViewById(R.id.warranty_date);
         myEnteredWarrantyDate = warrantyDTextView.getText().toString();
 
+
         //mDbHelperItems.updateListOfItemsRow(the_key, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
                 //myEnteredDate, myEnteredWarranty, myEnteredWarrantyDate); //Last three are wrong
 
-        mDbHelperItems.updateListOfItemsRow(the_key, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
-                null,  // DatePurchased
-                0, // Purchase Price
-                ' ', // Portable (Blank = No, Anythng else = Yes)
+        mDbHelperItems.updateListOfItemsRow(itemNumber, myEnteredListNo, myEnteredItemNo, myEnteredName, myEnteredSerial,
+                myEnteredDate,  // DatePurchased
+                myEnteredPurchasePrice, // Purchase Price
+                myEnteredPortable, // Portable (Blank = No, Anythng else = Yes)
                 myEnteredWarranty,
-                null);  // Warranty Expiration Date
+                myEnteredWarrantyDate);  // Warranty Expiration Date
         finish();
     }
 

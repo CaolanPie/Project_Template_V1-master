@@ -91,21 +91,26 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <!---
+
     <TextView
-        android:id="@+id/title_warranty"
+        android:id="@+id/title_purchase_price"
         android:layout_width="221dp"
         android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Warranty Y/N:" />
+        android:text="Price of Item:" />
 
     <EditText
-        android:id="@+id/warranty"
+        android:id="@+id/purchase_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName" />
-        -->
+
+        <CheckBox
+        android:id="@+id/portable_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Portable (Can be removed from location)" />
 
     <CheckBox
         android:id="@+id/warrenty_checkbox"

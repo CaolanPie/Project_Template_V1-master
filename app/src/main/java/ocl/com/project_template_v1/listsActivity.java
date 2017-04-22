@@ -54,7 +54,7 @@ public class listsActivity extends AppCompatActivity {
                 list_edit_intent.putExtra("selectedListNo", currentListNo);
                 startActivity(list_edit_intent);
 
-                Toast.makeText(getApplicationContext(), "We chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "You chose " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
 
             }
         });
