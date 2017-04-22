@@ -19,6 +19,7 @@ import java.io.StringBufferInputStream;
 import java.util.Date;
 import java.util.Locale;
 
+import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
 /**
@@ -28,6 +29,7 @@ import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 public class list_edit extends AppCompatActivity {
 
     private ListOfLists mDbHelperLists;
+    private ListOfItems mDbHelperItems;
     private String listName;
     private String ListDescription;
     private int listNumber;
@@ -54,6 +56,8 @@ public class list_edit extends AppCompatActivity {
 
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
+        mDbHelperItems = new ListOfItems(this);
+        mDbHelperItems.open();
         Cursor ListsCursor = mDbHelperLists.fetchListOfListsRow(listNumber);
 
         //Get List name from row returned
@@ -121,6 +125,7 @@ public class list_edit extends AppCompatActivity {
                         // we have a confirmation so delete record
                         mDbHelperLists.deleteListOfListsRow(listNumber);
                         //view.finish();
+                        mDbHelperItems.deleteItemsFromList(listNumber);
                         finish();
                         dialog.cancel();
 

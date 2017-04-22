@@ -186,10 +186,9 @@ public class ListOfItems {
     }
 
     /**
-     * deletes selected ListOfItems row
+     * deletes selected ListOfItems row, given a single rowId
      *
-     * input parameters rowId - the Lists to delete (which row it is on)
-     *
+     * @param rowId - the Lists to delete (which row it is on)
      * @return rowId
      */
     public boolean deleteListOfItemsRow(int rowId) {
@@ -198,10 +197,21 @@ public class ListOfItems {
     }
 
     /**
+     * deletes all items in a given list
+     *
+     * @param listId - target list to delete items from
+     * @return
+     */
+    public boolean deleteItemsFromList(int listId) {
+        Log.i(">> ListOfItems"," :: deleteItemsFromList");
+        return
+                mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + listId, null) > 0;
+    }
+
+    /**
      * fetches ALL the ListOfItems from the table
      *
      * input parameters NONE
-     *
      * @return string[] - a list of all the Lists in our table
      */
     public Cursor fetchAllListOfItems() {

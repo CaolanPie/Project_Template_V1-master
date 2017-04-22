@@ -8,6 +8,8 @@ package ocl.com.project_template_v1;
  */
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -86,25 +88,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         );
-        /*
-         * mDbHelperLists below is creating and opening the database for ListOfLIsts
-         */
-        // Read my ListOfLists table
-        /*
-        mDbHelperLists = new ListOfLists(this);
-        mDbHelperLists.open();
-        GetAllLists();  // Get all records from my List of Lists table
-        */
-        /*
-         * mDbHelperItems below is creating and opening the database for ListOfItems
-         */
-        /*
-        mDbHelperItems = new ListOfItems(this);
-        mDbHelperItems.open();
-        GetAllItems(); // Get all records from my List of Items table
-        */
-
-        // GetAllLists();  // Get all records from my List of Items table
 
         Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
         spinner.setOnItemSelectedListener(this);
@@ -249,13 +232,56 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.id.menu_Demo:
             {
                 Log.i(">> onOptnsSelect"," :: menu_Demo");
-                createDemoData();
-                // This next code refreshes the spinner list
-                spinnerArray.clear();
-                populateSpinnerLists(spinnerArray);
-                //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
-                spinnerAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), "Demo Data Created" , Toast.LENGTH_LONG).show();
+
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+                // set title
+                alertDialogBuilder.setTitle("Delete Current Data");
+
+                // set dialog message to make sure delete is needed
+                alertDialogBuilder
+                        .setMessage("Would you like to clear all current Data before inserting the Demo Data?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                Log.i(">> MainActivity"," :: delete = yes");
+                                // if this button is clicked
+                                // we have a confirmation so delete record
+                                formatDatabase();
+                                createDemoData();
+                                // This next code refreshes the spinner list
+                                spinnerArray.clear();
+                                populateSpinnerLists(spinnerArray);
+                                //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
+                                spinnerAdapter.notifyDataSetChanged();
+                                //view.finish();
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(), "Demo Data Created" , Toast.LENGTH_LONG).show();
+
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                Log.i(">> MainActivity"," :: delete = no");
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                createDemoData();
+                                // This next code refreshes the spinner list
+                                spinnerArray.clear();
+                                populateSpinnerLists(spinnerArray);
+                                //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
+                                spinnerAdapter.notifyDataSetChanged();
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(), "Demo Data Created" , Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
                 return true;
             }
             default:
@@ -304,6 +330,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 } while (ListsCursor.moveToNext());
             } else {
                 spinnerArray.add("No Lists Currently");
+            }
+        }
+    }
+
+    /**
+     * deletes all lists and therefore removes all their items as well
+     */
+    private void formatDatabase() {
+        Log.i(">> MainActivity"," :: formatDatabase");
+
+        Cursor ListsCursor = mDbHelperLists.fetchAllListOfLists();
+        startManagingCursor(ListsCursor);
+
+        if(ListsCursor != null) {
+            Log.i("No. of lists ", "to Delete "+ListsCursor.getCount());
+            if(ListsCursor.getCount() != 0){
+                ListsCursor.moveToFirst();
+
+                //String term = c.getString(c.getColumnIndex("term")));
+                do {
+                    int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
+                    mDbHelperItems.deleteItemsFromList(myListNo);
+                } while (ListsCursor.moveToNext());
+            } else {
+                Log.i(">> formatDatabase"," :: No deleting");
             }
         }
     }
