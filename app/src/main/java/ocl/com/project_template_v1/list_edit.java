@@ -116,7 +116,7 @@ public class list_edit extends AppCompatActivity {
 
         // set dialog message
         alertDialogBuilder
-                .setMessage("Are you sure you want to delete this list?")
+                .setMessage("Are you sure you want to delete this list? Note: this will delete all items on the list.")
                 .setCancelable(false)
                 .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {

@@ -346,13 +346,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if(ListsCursor != null) {
             Log.i("No. of lists ", "to Delete "+ListsCursor.getCount());
             if(ListsCursor.getCount() != 0){
+                // loop round our lists and call delete of all itesms withing them
                 ListsCursor.moveToFirst();
-
-                //String term = c.getString(c.getColumnIndex("term")));
                 do {
                     int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
-                    mDbHelperItems.deleteItemsFromList(myListNo);
+                    mDbHelperItems.deleteItemsFromList(myListNo);  // remove all items
                 } while (ListsCursor.moveToNext());
+                // Now loop on our list and remove the lists - we could actuall just call a delete all lists sql
+                ListsCursor.moveToFirst();
+                do {
+                    int myListNo = ListsCursor.getInt(ListsCursor.getColumnIndex("_id"));
+                    mDbHelperLists.deleteListOfListsRow(myListNo);  // remove this list row
+                } while (ListsCursor.moveToNext());
+
             } else {
                 Log.i(">> formatDatabase"," :: No deleting");
             }
