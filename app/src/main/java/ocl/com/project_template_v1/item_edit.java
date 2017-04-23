@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.sql.RowId;
 import java.util.Locale;
@@ -41,6 +45,8 @@ public class item_edit extends AppCompatActivity {
     private float PurchasePrice;
     private int PortableItem;
     private int ourTargetRowID;
+
+    private static final int RC_BARCODE_CAPTURE = 9001;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -130,8 +136,13 @@ public class item_edit extends AppCompatActivity {
 
     public void scanPage(View view) {
         Log.i(">> item_edit"," :: scanPage");
+        //Intent intent = new Intent(this, BarcodeCaptureActivity.class);
+        //startActivity(intent);
         Intent intent = new Intent(this, BarcodeCaptureActivity.class);
-        startActivity(intent);
+        intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
+        intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
+
+        startActivityForResult(intent, RC_BARCODE_CAPTURE);
     }
 
     /**
@@ -141,6 +152,58 @@ public class item_edit extends AppCompatActivity {
     public void backPage(View view) {
         Log.i(">> item_edit"," :: backPage");
         finish();
+    }
+
+
+    /**
+     * Called when an activity you launched exits, giving you the requestCode
+     * you started it with, the resultCode it returned, and any additional
+     * data from it.  The <var>resultCode</var> will be
+     * {@link #RESULT_CANCELED} if the activity explicitly returned that,
+     * didn't return any result, or crashed during its operation.
+     * <p/>
+     * <p>You will receive this call immediately before onResume() when your
+     * activity is re-starting.
+     * <p/>
+     *
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode  The integer result code returned by the child activity
+     *                    through its setResult().
+     * @param data        An Intent, which can return result data to the caller
+     *                    (various data can be attached to Intent "extras").
+     * @see #startActivityForResult
+     * @see #createPendingResult
+     * @see #setResult(int)
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        TextView serialTextView = (TextView)findViewById(R.id.serial_number);
+        Log.i(">> item_edit", "onActivityResult");
+        if (requestCode == RC_BARCODE_CAPTURE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
+                    serialTextView.setText(barcode.displayValue);
+                    Toast.makeText(item_edit.this,
+                            "Serial Number Added ",
+                            Toast.LENGTH_SHORT).show();
+                    //statusMessage.setText(R.string.barcode_success);
+                    //barcodeValue.setText(barcode.displayValue);
+                    //Log.d(TAG, "Barcode read: " + barcode.displayValue);
+                } else {
+                    //statusMessage.setText(R.string.barcode_failure);
+                    //Log.d(TAG, "No barcode captured, intent data is null");
+                }
+            } else {
+                //statusMessage.setText(String.format(getString(R.string.barcode_error),
+                //        CommonStatusCodes.getStatusCodeString(resultCode)));
+            }
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     /**
