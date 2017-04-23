@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_entry"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -33,7 +32,8 @@
         android:id="@+id/nameofList"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
+        android:layout_below="@+id/linearLayoutCompat5"
+        android:layout_toEndOf="@+id/title" />
 
     <!---
     <TextView
@@ -49,7 +49,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Item Name" />
+        android:hint="Item Name"
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/serial_number"
@@ -57,7 +59,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Serial Number" />
+        android:hint="Serial Number"
+        android:layout_below="@+id/item_name"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/date_purchased"
@@ -65,7 +69,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Date Purchased" />
+        android:hint="Date Purchased"
+        android:layout_below="@+id/serial_number"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/purchase_price"
@@ -73,19 +79,25 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:hint="Price of Item" />
+        android:hint="Price of Item"
+        android:layout_below="@+id/date_purchased"
+        android:layout_alignParentStart="true" />
 
         <CheckBox
         android:id="@+id/portable_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Portable (Can be removed from location)" />
+        android:text="Portable (Can be removed from location)"
+            android:layout_below="@+id/purchase_price"
+            android:layout_alignParentStart="true" />
 
     <CheckBox
         android:id="@+id/warrenty_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Warranty" />
+        android:text="Warranty"
+        android:layout_below="@+id/portable_checkbox"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/warranty_date"
@@ -93,32 +105,39 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Warranty Expiration Date" />
+        android:hint="Warranty Expiration Date"
+        android:layout_below="@+id/warrenty_checkbox"
+        android:layout_alignParentStart="true" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scan_button"
-        android:onClick="scanPage"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/cancel_button"
-        android:text="Save" />
+        android:text="Save"
+        android:layout_below="@+id/warranty_date"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/warranty_date"
         android:onClick="backPage"
-        android:text="Cancel" />
-</LinearLayout>
+        android:text="Cancel"
+        android:layout_below="@+id/warranty_date"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="89dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/scan_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:onClick="scanPage"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+</RelativeLayout>

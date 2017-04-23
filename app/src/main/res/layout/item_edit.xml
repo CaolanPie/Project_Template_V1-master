@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/item_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+        </RelativeLayout>
+    </ScrollView>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -20,117 +32,141 @@
 
     </android.support.v7.widget.LinearLayoutCompat>
 
-
-    <TextView
-        android:id="@+id/title_listno"
-        android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
-        android:layout_height="wrap_content"
-        android:text="List Number:" />
-
     <EditText
         android:id="@+id/list_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title_itemno"
         android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Item Number:" />
+        android:text="Item Number:"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/item_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:hint="item_number"
+        android:layout_below="@+id/title_itemno"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/title_item_name"
         android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Item Name:" />
+        android:text="Item Name:"
+        android:layout_below="@+id/item_number"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:hint="item_name"
+        android:layout_below="@+id/title_item_name"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/title_serialno"
         android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Serial Number:" />
+        android:text="Serial Number:"
+        android:layout_below="@+id/item_name"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/serial_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:hint="serial_number"
+        android:layout_below="@+id/title_serialno"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/title_date"
         android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Date Purchased:" />
+        android:text="Date Purchased:"
+        android:layout_below="@+id/serial_number"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/date_purchased"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:hint="date_purchased"
+        android:layout_below="@+id/title_date"
+        android:layout_alignParentStart="true" />
 
 
     <TextView
         android:id="@+id/title_purchase_price"
         android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Price of Item:" />
+        android:text="Price of Item:"
+        android:layout_below="@+id/date_purchased"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/purchase_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:hint="purchase_price"
+        android:layout_below="@+id/title_purchase_price"
+        android:layout_alignParentStart="true" />
 
         <CheckBox
         android:id="@+id/portable_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Portable (Can be removed from location)" />
+        android:text="Portable (Can be removed from location)"
+            android:layout_below="@+id/purchase_price"
+            android:layout_alignParentStart="true" />
 
     <CheckBox
         android:id="@+id/warrenty_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Warranty" />
+        android:text="Warranty"
+        android:layout_below="@+id/portable_checkbox"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/title_warranty_date"
         android:layout_width="221dp"
-        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        android:text="Warranty Expiration Date:" />
+        android:text="Warranty Expiration Date:"
+        android:layout_below="@+id/warrenty_checkbox"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/warranty_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_marginBottom="42dp"
+        android:hint="warranty_date"
+        android:layout_below="@+id/title_warranty_date"
+        android:layout_alignParentStart="true" />
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/scan_button"
@@ -149,20 +185,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="updateRow"
-        android:text="Update" />
+        android:text="Update"
+        android:layout_alignBaseline="@+id/cancel_button"
+        android:layout_alignBottom="@+id/cancel_button"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/warranty_date"/>
 
     <Button
         android:id="@+id/delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="deleteRow"
-        android:text="Delete" />
+        android:text="Delete"
+        android:layout_alignBaseline="@+id/cancel_button"
+        android:layout_alignBottom="@+id/cancel_button"
+        android:layout_toEndOf="@+id/cancel_button"
+        android:layout_below="@+id/warranty_date"/>
 
     <Button
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="backPage"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:layout_toEndOf="@+id/update_button"
+        android:layout_below="@+id/warranty_date"/>
 
-</LinearLayout>
+</RelativeLayout>
