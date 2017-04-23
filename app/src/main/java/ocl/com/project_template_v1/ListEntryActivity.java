@@ -5,14 +5,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfLists;
+
+import static ocl.com.project_template_v1.ListViewTableColumns.FIRST_COLUMN;
+import static ocl.com.project_template_v1.ListViewTableColumns.SECOND_COLUMN;
 
 /**
  * Created by Caolán on 01/04/2017.
@@ -25,6 +32,7 @@ public class ListEntryActivity extends AppCompatActivity {
     private Button mCancelButton;
     private EditText mNameBox;
     private EditText mDescriptionBox;
+    private ArrayList<HashMap<String, String>> myListTAble; // My Lists listview table
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -50,7 +58,36 @@ public class ListEntryActivity extends AppCompatActivity {
         //this detects when the button itself is pressed
         // this calls a routine which will setup the detection of the buttons
         registerButtonsListenersAndSetDefaultText();
+/*
+        // Table List
+        ListView listView=(ListView)findViewById(R.id.listTable);
 
+        myListTAble=new ArrayList<HashMap<String,String>>();
+
+        HashMap<String,String> temp=new HashMap<String, String>();
+        temp.put(FIRST_COLUMN, "Ankit Karia");
+        temp.put(SECOND_COLUMN, "Male");
+        myListTAble.add(temp);
+
+        HashMap<String,String> temp2=new HashMap<String, String>();
+        temp2.put(FIRST_COLUMN, "Rajat Ghai");
+        temp2.put(SECOND_COLUMN, "Male");
+        myListTAble.add(temp2);
+
+        ListsTableAdapter adapter=new ListsTableAdapter(this, myListTAble);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
+            {
+                int pos=position+1;
+                Toast.makeText(ListEntryActivity.this, Integer.toString(pos)+" Clicked", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+*/
     }
 
     // This routine we will create all our listeners for our screen

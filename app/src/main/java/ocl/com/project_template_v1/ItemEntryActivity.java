@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ocl.com.project_template_v1.DBfunctions.ListOfItems;
+import ocl.com.project_template_v1.DBfunctions.ListOfLists;
 
 /**
  * Created by Caolán on 01/04/2017.
@@ -21,6 +22,7 @@ import ocl.com.project_template_v1.DBfunctions.ListOfItems;
 public class ItemEntryActivity extends AppCompatActivity {
 
     private ListOfItems mDbHelperItems;
+    private ListOfLists mDbHelperLists;
     private Button mSaveButton;
     private Button mCancelButton;
     private EditText mNameBox;
@@ -116,6 +118,11 @@ public class ItemEntryActivity extends AppCompatActivity {
                         Toast.makeText(ItemEntryActivity.this,
                                 "Details Saved",
                                 Toast.LENGTH_SHORT).show();
+                        // need to update the List Edit Date Also
+                        mDbHelperLists = new ListOfLists(ItemEntryActivity.this);
+                        mDbHelperLists.open();
+                        mDbHelperLists.updateListOfListsRowEditDate(myListNumber);
+
                         finish(); // now exit this screen
 //						showDialog(DATE_PICKER_DIALOG);
                     } // end of setClick(view...

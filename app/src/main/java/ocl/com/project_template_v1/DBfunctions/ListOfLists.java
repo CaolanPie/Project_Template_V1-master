@@ -187,6 +187,13 @@ public class ListOfLists {
                 mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
+    public boolean updateListOfListsRowEditDate(int rowId) {
+        ContentValues newValue = new ContentValues();
+        newValue.put(KEY_LastEdited, getDateTime());
+        return mDb.update(DATABASE_TABLE, newValue, KEY_ROWID + "=" + rowId, null) > 0;
+                //mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
     /**
      * fetches ALL the ListOfLists from the table
      *
@@ -257,15 +264,15 @@ public class ListOfLists {
         args.put(KEY_Description, Description);
         if( dateCreated == null)
         {
-            args.put(KEY_DateCreated, getDateTime());
+            // args.put(KEY_DateCreated, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            args.put(KEY_DateCreated, dateCreated);
         }
         if( lastEdited == null)
         {
             args.put(KEY_LastEdited, getDateTime());
         } else {
-            // use our passed date - to be fixed later
+            args.put(KEY_LastEdited, lastEdited);
         }
 
         return

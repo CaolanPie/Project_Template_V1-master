@@ -28,7 +28,7 @@ import static java.lang.Byte.valueOf;
 
 public class item_edit extends AppCompatActivity {
 
-    private ListOfItems mDbHelperLists;
+    private ListOfLists mDbHelperLists;
     private ListOfItems mDbHelperItems;
     private String itemName;
     private String ItemSerial;
@@ -259,6 +259,10 @@ public class item_edit extends AppCompatActivity {
                 myEnteredPortable, // Portable (Blank = No, Anythng else = Yes)
                 myEnteredWarranty,
                 myEnteredWarrantyDate);  // Warranty Expiration Date
+        // need to update the List Edit Date Also
+        mDbHelperLists = new ListOfLists(this);
+        mDbHelperLists.open();
+        mDbHelperLists.updateListOfListsRowEditDate(myEnteredListNo);
         finish();
     }
 

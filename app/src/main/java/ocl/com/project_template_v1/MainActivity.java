@@ -65,9 +65,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //This is for my spinner
         spinnerArray = new ArrayList<String> (Arrays.asList("Default"));
         spinnerArray.clear(); //remove this line for testing
-
+        // Lists Table
         mDbHelperLists = new ListOfLists(this);
         mDbHelperLists.open();
+        // below code is needed to stop crash if we do demo data First thing
+        // Items Table
+        mDbHelperItems = new ListOfItems(this);
+        mDbHelperItems.open();
 
         populateSpinnerLists(spinnerArray);
         // get ID's of our two lists
