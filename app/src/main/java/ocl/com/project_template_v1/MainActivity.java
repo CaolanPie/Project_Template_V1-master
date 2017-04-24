@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ArrayList<String> myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
         myArrayList.clear();        // Clear our list
-        myArrayList.add("Fourth");  // Add some value
-        myArrayList.add("Fifth");
-        myArrayList.add("Last");
+        myArrayList.add("[Item] Warranty Expires on [Date]");  // Add some value
+        myArrayList.add("New model of [item] Available");
+        myArrayList.add("Insurance for [List] exceeds [content insurance]");
 
         // The next line called the routing which will populate our list of messages
         populateMyList(myArrayList);
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
         //spinner.setOnItemSelectedListener(this);
-        Toast.makeText(getApplicationContext(), "You chose " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Current List  -  " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
 
         currentList = parent.getItemAtPosition(pos).toString();
     }
@@ -178,6 +178,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(intent);
     }
 
+    public void settingsPage() {
+        Log.i(">> MainActivity"," :: settingsPage");
+        Intent intent = new Intent(this, settingsActivity.class);
+        startActivity(intent);
+    }
+
 
     /**
      * The listEntryPage is currently designed to open an entire page to allow you to enter details
@@ -234,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.id.menu_settings:
             {
                 Log.i(">> onOptnsSelect"," :: menu_settings");
+                settingsPage();
                 return true;
             }
             case R.id.menu_about:
@@ -308,9 +315,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     private void populateMyList(ArrayList<String> myArrayList) {
         Log.i(">> MainActivity"," :: populateMyList");
-        myArrayList.add("Added by PopulateMyList");
-        myArrayList.add("Also Added by PopulateMyList");
-        myArrayList.add("moo");
+        myArrayList.add("Insurance Renewal in [Days]");
+        myArrayList.add("[Item] Added to [List], [Date]");
+        myArrayList.add("[List] Created [Date Created]");
 
     } // End of populateMyList
 
