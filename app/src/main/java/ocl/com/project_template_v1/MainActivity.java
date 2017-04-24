@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private int currentListNo;
     private ArrayList<String> spinnerArray;
     private ArrayAdapter<String> spinnerAdapter;
+    private ArrayList<String> myArrayList;
 
 
     @Override
@@ -53,14 +54,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         ListView ll=(ListView) findViewById(R.id.list_messages);
 
-        ArrayList<String> myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
-        myArrayList.clear();        // Clear our list
-        myArrayList.add("[Item] Warranty Expires on [Date]");  // Add some value
-        myArrayList.add("New model of [item] Available");
-        myArrayList.add("Insurance for [List] exceeds [content insurance]");
+        // ArrayList<String> myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
+        myArrayList = new ArrayList<String> (Arrays.asList("Empty"));
 
         // The next line called the routing which will populate our list of messages
-        populateMyList(myArrayList);
+        // populateMyList(myArrayList);
+        populateMyList();;
 
         //This is for my spinner
         spinnerArray = new ArrayList<String> (Arrays.asList("Default"));
@@ -274,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 populateSpinnerLists(spinnerArray);
                                 //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
                                 spinnerAdapter.notifyDataSetChanged();
+                                populateMyList();
                                 //view.finish();
                                 dialog.cancel();
                                 Toast.makeText(getApplicationContext(), "Demo Data Created" , Toast.LENGTH_LONG).show();
@@ -291,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 populateSpinnerLists(spinnerArray);
                                 //Spinner spinner = (Spinner) findViewById(R.id.lists_spinner);
                                 spinnerAdapter.notifyDataSetChanged();
+                                populateMyList();
                                 dialog.cancel();
                                 Toast.makeText(getApplicationContext(), "Demo Data Created" , Toast.LENGTH_LONG).show();
                             }
@@ -311,14 +312,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /**
      * Routine to populate our ArrayList of Message for the bottom of the screen
      *      Currently there are only hard coded messages
-     *      @param myArrayList
+     *      @param
      */
-    private void populateMyList(ArrayList<String> myArrayList) {
+    // private void populateMyList(ArrayList<String> myArrayList) {
+    private void populateMyList() {
         Log.i(">> MainActivity"," :: populateMyList");
+
+        int nOverGivenPrice = 0;
+        int isPortable;
+        float itemCost = 0;
+        float givenCost = 2500;
+        String stringgivenCost;
+        myArrayList.clear();        // Clear our list
+        myArrayList.add("[Item] Warranty Expires on [Date]");  // Add some value
+        myArrayList.add("New model of [item] Available");
+        myArrayList.add("Insurance for [List] exceeds [content insurance]");
         myArrayList.add("Insurance Renewal in [Days]");
         myArrayList.add("[Item] Added to [List], [Date]");
         myArrayList.add("[List] Created [Date Created]");
 
+        // hard coding value but will be read from settings in future
+
+        // This section check for items over amount set in settings
+        // Items Table
+        mDbHelperItems = new ListOfItems(this);
+        mDbHelperItems.open();
+        Cursor tempCursor = mDbHelperItems.fetchAllListOfItems();
+        startManagingCursor(tempCursor);
+
+        if(tempCursor != null) {
+            Log.i(">> MainActivity", " :: populateMyList num items =" + tempCursor.getCount());
+            if (tempCursor.getCount() != 0) {
+                tempCursor.moveToFirst();
+
+                do {
+                    isPortable = tempCursor.getInt(tempCursor.getColumnIndex("PortableItem"));
+                    if( isPortable != 0) {
+                        itemCost = tempCursor.getFloat(tempCursor.getColumnIndex("PurchasePrice"));
+                        if ( itemCost > givenCost) {
+                            nOverGivenPrice = nOverGivenPrice +1; // add one to our total
+                        }
+                    }
+                } while ( tempCursor.moveToNext());
+            }
+        }
+        if ( nOverGivenPrice > 0) {
+            myArrayList.add( nOverGivenPrice + " over limit of "+ givenCost);
+        }
     } // End of populateMyList
 
     public void onResume(){
@@ -425,11 +465,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mDbHelperItems.createListOfItemsRow( (int)rowID, 4, "Philips Shaver", "PS-01-04", "Jun 01, 2009", 60, 1, 1,"Jun 31, 2014");
 
         rowID = mDbHelperLists.createListOfListsRow("Garage", "Double Garage", "Jan 02, 2015","Sep 31, 2017");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Mercedes", "BM-784-3736-12", "Jan 01, 2015", 15000, 1, 1,"Dec 31, 2019");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Mercedes", "BM-784-3736-12", "Jan 01, 2015", 15000, 0, 1,"Dec 31, 2019");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Petrol Powered Lawnmower", "SR-127-3736-12", "Jan 01, 2015", 300, 1, 1,"Dec 31, 2016");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Yamaha Motorbike", "SR-127-3736-12", "Jan 01, 2015", 3000, 1, 1,"Dec 31, 2016");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Yamaha Motorbike", "SR-127-3736-12", "Jan 01, 2015", 3000, 0, 1,"Dec 31, 2016");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Icebox Freezer", "SR-127-3736-12", "Jan 01, 2015", 500, 0, 1,"Dec 31, 2016");
-        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Ford Focus", "SR-127-3736-12", "Jan 01, 2015", 8000, 1, 1,"Dec 31, 2016");
+        mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Ford Focus", "SR-127-3736-12", "Jan 01, 2015", 8000, 0, 1,"Dec 31, 2016");
 
         rowID = mDbHelperLists.createListOfListsRow("Attick", "Roof Storage", "Jan 02, 2015","Sep 31, 2017");
         mDbHelperItems.createListOfItemsRow( (int)rowID, 1, "Heirlooms", "SR-127-3736-12", "Jan 01, 2015", 200, 1, 1,"Dec 31, 2016");
