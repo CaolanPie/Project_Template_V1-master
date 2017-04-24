@@ -232,6 +232,7 @@ public class ListOfLists {
      * @return myListNo - the list number based on the list name
      */
     public int fetchListOfListsRowByName(String listName) throws SQLException {
+        int myListNo;
         Cursor mCursor =
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
                                 KEY_Name}, KEY_Name + "=" + "'" + listName + "'",
@@ -239,7 +240,12 @@ public class ListOfLists {
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
-        int myListNo = mCursor.getInt(mCursor.getColumnIndex(KEY_ROWID));
+        if ( mCursor.getCount() >= 1) {
+            myListNo = mCursor.getInt(mCursor.getColumnIndex(KEY_ROWID));
+        } else {
+            myListNo = 0; // no rows returned
+        }
+
         return myListNo;
     }
 

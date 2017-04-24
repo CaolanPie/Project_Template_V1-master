@@ -142,11 +142,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * @param view
      */
     public void inventoryPage(View view) {
-        Log.i(">> MainActivity"," :: inventoryPage");
+        Log.i(">> MainActivity"," :: go to inventoryPage");
+        int numberOfRow;
         Intent intent = new Intent(this, inventoryActivity.class);
         intent.putExtra("selectedList", currentList);
-        intent.putExtra("selectedListNo", mDbHelperLists.fetchListOfListsRowByName(currentList));
-        startActivity(intent);
+        numberOfRow = mDbHelperLists.fetchListOfListsRowByName(currentList);
+        if ( numberOfRow >= 1) {
+            intent.putExtra("selectedListNo", numberOfRow);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(), "No Data Currently" , Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     /**
@@ -325,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Log.i("Number of List Records"," :: "+ListsCursor.getCount());
             if(ListsCursor.getCount() != 0){
                 ListsCursor.moveToFirst();
-
+                currentList = ListsCursor.getString(ListsCursor.getColumnIndex("Name"));
                 //String term = c.getString(c.getColumnIndex("term")));
                 do {
                     String listName = ListsCursor.getString(ListsCursor.getColumnIndex("Name"));

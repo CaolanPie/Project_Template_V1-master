@@ -14,7 +14,7 @@ import static ocl.com.project_template_v1.ListViewTableColumns.FIRST_COLUMN;
 import static ocl.com.project_template_v1.ListViewTableColumns.SECOND_COLUMN;
 
 /**
- * Created by Tony on 23/04/2017.
+ * Created by Caolán on 23/04/2017.
  */
 
 public class ListsTableAdapter extends BaseAdapter {
